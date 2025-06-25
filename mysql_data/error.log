@@ -1,0 +1,7 @@
+2025-06-23T22:19:12.765138Z 0 [Warning] One can only use the --user switch if running as root
+
+2025-06-23T22:19:12.887701Z 0 [Warning] InnoDB: New log files created, LSN=45790
+2025-06-23T22:19:12.928679Z 0 [Warning] InnoDB: Creating foreign key constraint system tables.
+2025-06-23T22:19:12.995152Z 0 [ERROR] unknown variable 'mysqlx-bind-address=127.0.0.1'
+2025-06-23T22:19:12.995201Z 0 [ERROR] Aborting
+

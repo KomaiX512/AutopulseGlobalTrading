@@ -1,0 +1,72 @@
+.order-status,
+.header {
+
+    background-color: transparent !important;
+
+
+}
+
+
+@media only screen and (max-width:400px) {
+
+    .container {
+        padding: 2px !important;
+    }
+}
+
+.order-informations {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 50px 0px;
+}
+
+
+h4 {
+    font-size: 16px;
+}
+
+h2 {
+    padding: 20px 0px;
+}
+
+pre {
+    display: none !important;
+}
+
+
+.curstomer-information {
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 10px;
+
+    .item {
+
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        border: 1px solid lightgray;
+
+        .name {
+
+            font-weight: 600;
+            color: rgb(69, 69, 69);
+            background-color: #ffd999;
+            padding: 5px;
+            border: 1px solid rgb(52, 171, 210);
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .value {
+            color: rgb(69, 69, 69);
+            padding: 10px;
+        }
+    }
+}
+
+
+.steps-container {
+    border: 1px solid black;
+}

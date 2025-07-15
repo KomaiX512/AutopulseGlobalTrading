@@ -27,8 +27,8 @@ const servicesData = [
         title: 'MARKET EXPERTISE',
         description: "With over two decades of experience in the export industry, Autopulse has built a reputation for reliability and expertise. Our team of professionals brings deep industry knowledge and a commitment to excellence, ensuring that our clients receive expert advice and support throughout their business journey with us.",
         delay: '0.3s',
-        bgColor: 'bg-yellow-500',
-        textColor: 'text-yellow-600'
+        bgColor: 'bg-indigo-500',
+        textColor: 'text-indigo-600'
     },
     {
         id: 4,
@@ -70,7 +70,7 @@ function Services() {
                 <div className="grid md:grid-cols-2 gap-10 mt-10">
                     {servicesData?.map((service) => (
                         <div className="flex gap-4 items-start" key={service.id}>
-                            <span className={`bg-yellow-500/10  text-yellow-600 p-3 rounded-full`} >
+                            <span className={`bg-gray-100 text-gray-700 p-3 rounded-full`} >
                                 {service.icon}
                             </span>
                             <div>

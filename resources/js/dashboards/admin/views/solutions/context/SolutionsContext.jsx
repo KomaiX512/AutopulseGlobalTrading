@@ -29,22 +29,19 @@ const solutionsReducer = (state, action) => {
     case 'SET_SOLUTIONS': {
       // Ensure we always store an array of solutions and valid pagination meta
       const payload = action.payload || {};
-      const list = Array.isArray(payload)
-        ? payload
-        : Array.isArray(payload.data)
-          ? payload.data
-          : [];
+      const list = Array.isArray(payload.data) ? payload.data : [];
 
       return {
         ...state,
         solutions: list,
         pagination: {
           ...state.pagination,
-          current: payload.current_page || state.pagination.current,
+          current: payload.current_page || 1,
           total: payload.total || list.length,
-          pageSize: payload.per_page || state.pagination.pageSize,
+          pageSize: payload.per_page || 10,
         },
         loading: false,
+        error: null, // Clear any previous errors
       };
     }
     case 'SET_CURRENT_SOLUTION':
@@ -77,163 +74,208 @@ const solutionsReducer = (state, action) => {
   }
 };
 
-// Helper to safely parse JSON responses
-const safeJson = async (response) => {
-  const text = await response.text();
+// Helper to get CSRF token with better error handling
+const getCsrfToken = () => {
   try {
-    return JSON.parse(text);
-  } catch (_) {
-    // Return raw text so caller can throw meaningful error
-    return { success: false, message: text };
+    // First try: meta tag
+    const metaToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+    if (metaToken) {
+      return decodeURIComponent(metaToken);
+    }
+
+    // Second try: XSRF-TOKEN cookie
+    const cookies = document.cookie.split(';').map(cookie => cookie.trim());
+    const xsrfCookie = cookies.find(cookie => cookie.startsWith('XSRF-TOKEN='));
+    if (xsrfCookie) {
+      return decodeURIComponent(xsrfCookie.split('=')[1]);
+    }
+
+    // Third try: Laravel session cookie
+    const laravelCookie = cookies.find(cookie => cookie.startsWith('laravel_session='));
+    if (laravelCookie) {
+      return decodeURIComponent(laravelCookie.split('=')[1]);
+    }
+
+    console.warn('CSRF token not found in any expected location');
+    return null;
+  } catch (error) {
+    console.error('Error getting CSRF token:', error);
+    return null;
+  }
+};
+
+// Helper to refresh session and get new CSRF token
+const refreshSession = async () => {
+  try {
+    // First try: Sanctum CSRF endpoint
+    let response = await fetch('/sanctum/csrf-cookie', {
+      method: 'GET',
+      credentials: 'same-origin',
+      headers: {
+        'Accept': 'application/json',
+      }
+    });
+
+    if (!response.ok) {
+      // Second try: Custom refresh endpoint
+      response = await fetch('/api/refresh-csrf', {
+        method: 'GET',
+        credentials: 'same-origin',
+        headers: {
+          'Accept': 'application/json',
+        }
+      });
+    }
+
+    if (response.ok) {
+      // Wait a moment for cookies to be set
+      await new Promise(resolve => setTimeout(resolve, 100));
+      return getCsrfToken();
+    }
+  } catch (error) {
+    console.error('Failed to refresh session:', error);
+  }
+  return null;
+};
+
+// Helper to make authenticated requests with CSRF handling
+const makeAuthenticatedRequest = async (url, options = {}) => {
+  let attempts = 0;
+  const maxAttempts = 2;
+
+  while (attempts < maxAttempts) {
+    try {
+      let csrfToken = getCsrfToken();
+      
+      if (!csrfToken && attempts === 0) {
+        csrfToken = await refreshSession();
+      }
+
+      if (!csrfToken) {
+        throw new Error('CSRF token not available');
+      }
+
+      // Prepare headers - don't set Content-Type for FormData
+      const headers = {
+        'X-CSRF-TOKEN': csrfToken,
+        'Accept': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        ...options.headers
+      };
+
+      // Remove Content-Type header if we're sending FormData
+      if (options.body instanceof FormData) {
+        delete headers['Content-Type'];
+      }
+
+      const response = await fetch(url, {
+        ...options,
+        headers,
+        credentials: 'same-origin'
+      });
+
+      if (response.status === 419) {
+        if (attempts < maxAttempts - 1) {
+          attempts++;
+          await refreshSession();
+          continue;
+        }
+        throw new Error('CSRF token mismatch. Please refresh the page and try again.');
+      }
+
+      if (response.status === 401) {
+        throw new Error('Authentication required. Please log in again.');
+      }
+
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || `Request failed with status ${response.status}`);
+      }
+
+      return data;
+    } catch (error) {
+      if (attempts === maxAttempts - 1) {
+        throw error;
+      }
+      attempts++;
+    }
   }
 };
 
 // API functions
 const solutionsAPI = {
-  // Get all solutions with pagination and filters
+  // Get solutions list
   async getSolutions(filters = {}, pagination = {}) {
     const params = new URLSearchParams({
-      page: pagination.current || 1,
-      per_page: pagination.pageSize || 10,
       ...filters,
+      page: pagination.current || 1,
+      per_page: pagination.pageSize || 10
     });
 
-    const response = await fetch(`/api/admin/solutions?${params}`);
-    const data = await safeJson(response);
-    
-    if (!data.success) {
-      throw new Error(data.message || 'Failed to fetch solutions');
-    }
-    
-    return data.solutions;
+    return makeAuthenticatedRequest(`/api/admin/solutions?${params}`, {
+      method: 'GET'
+    });
   },
 
   // Get single solution
   async getSolution(id) {
-    const response = await fetch(`/api/admin/solutions/${id}`);
-    const data = await safeJson(response);
-    
-    if (!data.success) {
-      throw new Error(data.message || 'Failed to fetch solution');
-    }
-    
-    return data.solution;
+    return makeAuthenticatedRequest(`/api/admin/solutions/${id}`, {
+      method: 'GET'
+    });
   },
 
   // Create solution
   async createSolution(solutionData) {
-    const response = await fetch('/api/admin/solutions/', {
+    return makeAuthenticatedRequest('/api/admin/solutions', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
-      },
-      body: JSON.stringify(solutionData),
+      body: solutionData // Remove headers for FormData
     });
-    
-    const data = await safeJson(response);
-    
-    if (!data.success) {
-      throw new Error(data.message || 'Failed to create solution');
-    }
-    
-    return data.solution;
   },
 
   // Update solution
   async updateSolution(id, solutionData) {
-    const response = await fetch(`/api/admin/solutions/${id}`, {
+    return makeAuthenticatedRequest(`/api/admin/solutions/${id}`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
-      },
-      body: JSON.stringify(solutionData),
+      body: solutionData // Remove headers for FormData
     });
-    
-    const data = await safeJson(response);
-    
-    if (!data.success) {
-      throw new Error(data.message || 'Failed to update solution');
-    }
-    
-    return data.solution;
   },
 
   // Delete solution
   async deleteSolution(id) {
-    const response = await fetch(`/api/admin/solutions/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
-        'Accept': 'application/json',
-      },
+    return makeAuthenticatedRequest(`/api/admin/solutions/${id}`, {
+      method: 'DELETE'
     });
-    
-    const data = await safeJson(response);
-    
-    if (!data.success) {
-      throw new Error(data.message || 'Failed to delete solution');
-    }
-    
-    return data;
   },
 
   // Get available products
   async getAvailableProducts(filters = {}) {
     const params = new URLSearchParams(filters);
-    const response = await fetch(`/api/admin/solutions/products/available?${params}`);
-    const data = await safeJson(response);
-    
-    if (!data.success) {
-      throw new Error(data.message || 'Failed to fetch products');
-    }
-    
-    return data.products;
+    return makeAuthenticatedRequest(`/api/admin/solutions/products/available?${params}`, {
+      method: 'GET'
+    });
   },
 
-  // Assign products to solution
+  // Assign products
   async assignProducts(solutionId, productIds) {
-    const response = await fetch(`/api/admin/solutions/${solutionId}/products/assign`, {
+    return makeAuthenticatedRequest(`/api/admin/solutions/${solutionId}/products/assign`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ product_ids: productIds }),
+      body: JSON.stringify({ product_ids: productIds })
     });
-    
-    const data = await safeJson(response);
-    
-    if (!data.success) {
-      throw new Error(data.message || 'Failed to assign products');
-    }
-    
-    return data;
   },
 
-  // Remove products from solution
+  // Remove products
   async removeProducts(solutionId, productIds) {
-    const response = await fetch(`/api/admin/solutions/${solutionId}/products/remove`, {
+    return makeAuthenticatedRequest(`/api/admin/solutions/${solutionId}/products/remove`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ product_ids: productIds }),
+      body: JSON.stringify({ product_ids: productIds })
     });
-    
-    const data = await safeJson(response);
-    
-    if (!data.success) {
-      throw new Error(data.message || 'Failed to remove products');
-    }
-    
-    return data;
   }
 };
 
@@ -246,11 +288,27 @@ export const SolutionsProvider = ({ children }) => {
     async loadSolutions(filters = {}, pagination = {}) {
       try {
         dispatch({ type: 'SET_LOADING', payload: true });
+        dispatch({ type: 'SET_ERROR', payload: null });
+        
         const data = await solutionsAPI.getSolutions(filters, pagination);
         dispatch({ type: 'SET_SOLUTIONS', payload: data });
       } catch (error) {
+        console.error('Error loading solutions:', error);
         dispatch({ type: 'SET_ERROR', payload: error.message });
-        message.error(error.message);
+        
+        // If it's an authentication error, redirect to login
+        if (error.message.includes('Authentication') || error.message.includes('Unauthenticated')) {
+          window.location.href = '/login';
+          return;
+        }
+        
+        // If it's a network error, show a user-friendly message
+        if (error.message.includes('NetworkError') || error.message.includes('fetch')) {
+          dispatch({ type: 'SET_ERROR', payload: 'Network error. Please check your connection and try again.' });
+          return;
+        }
+        
+        message.error(error.message || 'Failed to load solutions');
       }
     },
 
@@ -258,13 +316,24 @@ export const SolutionsProvider = ({ children }) => {
     async loadSolution(id) {
       try {
         dispatch({ type: 'SET_LOADING', payload: true });
+        dispatch({ type: 'SET_ERROR', payload: null });
+        
         const solution = await solutionsAPI.getSolution(id);
         dispatch({ type: 'SET_CURRENT_SOLUTION', payload: solution });
         dispatch({ type: 'SET_LOADING', payload: false });
         return solution;
       } catch (error) {
+        console.error('Error loading solution:', error);
         dispatch({ type: 'SET_ERROR', payload: error.message });
-        message.error(error.message);
+        dispatch({ type: 'SET_LOADING', payload: false });
+        
+        // If it's an authentication error, redirect to login
+        if (error.message.includes('Authentication') || error.message.includes('Unauthenticated')) {
+          window.location.href = '/login';
+          return;
+        }
+        
+        message.error(error.message || 'Failed to load solution');
         throw error;
       }
     },

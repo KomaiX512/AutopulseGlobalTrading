@@ -4,22 +4,22 @@
   ],
   "node_modules/laravel-vite-plugin/inertia-helpers/index.js": [],
   "node_modules/quill-table-ui/dist/index.css": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "node_modules/react-quill/dist/quill.snow.css": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "node_modules/simplebar-react/dist/simplebar.min.css": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "node_modules/slick-carousel/slick/slick-theme.css": [
-    "/build/assets/AttachmentComponent-CRE5apCQ.js",
+    "/build/assets/AttachmentComponent-BnWqiux2.js",
     "/build/assets/AttachmentComponent-BVPYw8hg.css",
     "/build/assets/ajax-loader-BcnMEykj.gif",
     "/build/assets/slick-Bi9J8BMx.eot",
@@ -28,7 +28,7 @@
     "/build/assets/slick-BlzDm7g2.svg"
   ],
   "node_modules/slick-carousel/slick/slick.css": [
-    "/build/assets/AttachmentComponent-CRE5apCQ.js",
+    "/build/assets/AttachmentComponent-BnWqiux2.js",
     "/build/assets/AttachmentComponent-BVPYw8hg.css",
     "/build/assets/ajax-loader-BcnMEykj.gif",
     "/build/assets/slick-Bi9J8BMx.eot",
@@ -38,15 +38,15 @@
   ],
   "resources/css/app.css": [],
   "resources/css/style.css": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Components/ApplicationLogo.jsx": [
     "/build/assets/ApplicationLogo-uh9wWMR0.js"
   ],
   "resources/js/Components/Checkbox.jsx": [
-    "/build/assets/Login-ByymQ-tp.js",
-    "/build/assets/Login-DPzMOXiv.css"
+    "/build/assets/Login-DwsyLap7.js",
+    "/build/assets/Login-eAJzMoHl.css"
   ],
   "resources/js/Components/DangerButton.jsx": [
     "/build/assets/DeleteUserForm-C6Pv9Vuy.js"
@@ -64,7 +64,7 @@
     "/build/assets/DeleteUserForm-C6Pv9Vuy.js"
   ],
   "resources/js/Components/MultiFileUploaders.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
@@ -72,7 +72,7 @@
     "/build/assets/Edit-DzxD5Btn.js"
   ],
   "resources/js/Components/Popover.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
@@ -89,12 +89,12 @@
     "/build/assets/TextInput-B6lQlW2Q.js"
   ],
   "resources/js/Components/UploadImage.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/Homepage/Components/AttachmentComponent.jsx": [
-    "/build/assets/AttachmentComponent-CRE5apCQ.js",
+    "/build/assets/AttachmentComponent-BnWqiux2.js",
     "/build/assets/AttachmentComponent-BVPYw8hg.css",
     "/build/assets/ajax-loader-BcnMEykj.gif",
     "/build/assets/slick-Bi9J8BMx.eot",
@@ -103,211 +103,219 @@
     "/build/assets/slick-BlzDm7g2.svg"
   ],
   "resources/js/Homepage/Components/AttachmentsByCategory.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
   "resources/js/Homepage/Components/BlogPreview.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
   "resources/js/Homepage/Components/CK5Editor.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/Homepage/Components/Cart.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Components/Contact.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
   "resources/js/Homepage/Components/DrafEditor.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/Homepage/Components/ExploreAttachments.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
   "resources/js/Homepage/Components/FAQ.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
-  "resources/js/Homepage/Components/HeroSection.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+  "resources/js/Homepage/Components/HeroBanner.jsx": [
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
+  ],
+  "resources/js/Homepage/Components/Introduction.jsx": [
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
   "resources/js/Homepage/Components/Latest.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
   "resources/js/Homepage/Components/MachinesByBodyType.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
   "resources/js/Homepage/Components/MachinesByBrand.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
   "resources/js/Homepage/Components/Menubar.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Components/ProductComponent.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
+  ],
+  "resources/js/Homepage/Components/ProductHero.jsx": [
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Components/ProductImageGallery.jsx": [
-    "/build/assets/ProductImageGallery-9KhtC2iJ.js",
-    "/build/assets/ProductImageGallery-Cj7e0_M_.css"
+    "/build/assets/ProductImageGallery-PqcnGb5H.js",
+    "/build/assets/ProductImageGallery-CGRc8tpL.css"
   ],
   "resources/js/Homepage/Components/ProductSkeleton.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
   "resources/js/Homepage/Components/ProductSpecificationTable.jsx": [
-    "/build/assets/ProductImageGallery-9KhtC2iJ.js",
-    "/build/assets/ProductImageGallery-Cj7e0_M_.css"
+    "/build/assets/ProductImageGallery-PqcnGb5H.js",
+    "/build/assets/ProductImageGallery-CGRc8tpL.css"
   ],
   "resources/js/Homepage/Components/ProductsList.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
   "resources/js/Homepage/Components/ProfileDropdown.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Components/RelatedAttachments.jsx": [
-    "/build/assets/RelatedAttachments-DNayKOjA.js"
+    "/build/assets/RelatedAttachments-0D_FgIcx.js"
   ],
   "resources/js/Homepage/Components/RelatedProducts.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Components/Services.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
   "resources/js/Homepage/Components/ShipmentsShowcase.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
   "resources/js/Homepage/Components/Slider.jsx": [
-    "/build/assets/Slider-DlNrtDXl.js"
+    "/build/assets/Slider-D_k0UNaj.js"
   ],
   "resources/js/Homepage/Components/SolutionsByProject.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
   "resources/js/Homepage/Components/VideoPlayer.jsx": [
-    "/build/assets/Slider-DlNrtDXl.js"
+    "/build/assets/VideoPlayer-uOeot7yT.js"
   ],
   "resources/js/Homepage/Components/WhatsAppButton.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
   "resources/js/Homepage/Components/faqstyle.css": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
   "resources/js/Homepage/Components/services/CheckoutForm.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Pages/About.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Pages/AllAttachments.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Pages/AllProducts.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Pages/AttachmentProduct.jsx": [
-    "/build/assets/Welcome-D4cKMHcy.js"
+    "/build/assets/Welcome-CNloHj85.js"
   ],
   "resources/js/Homepage/Pages/AttachmentProductType.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Pages/ContactUsPage.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Pages/Footer.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Pages/HomePage.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
   "resources/js/Homepage/Pages/Navbar.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Pages/PrivacyPolicy.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Pages/ProdDropdown.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Pages/Product.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Pages/ProductSearch.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Pages/ProductType.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Pages/SolutionProducts.jsx": [
-    "/build/assets/Welcome-D4cKMHcy.js"
+    "/build/assets/Welcome-CNloHj85.js"
   ],
   "resources/js/Homepage/Pages/SolutionsPage.jsx": [
-    "/build/assets/Welcome-D4cKMHcy.js"
+    "/build/assets/Welcome-CNloHj85.js"
   ],
   "resources/js/Homepage/Pages/Testimonials.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
   "resources/js/Homepage/Pages/Track.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Pages/blogs/AllBlogs.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Pages/blogs/SingleBlog.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Pages/nav.scss": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/Pages/singleproduct.scss": [
-    "/build/assets/ProductImageGallery-9KhtC2iJ.js",
-    "/build/assets/ProductImageGallery-Cj7e0_M_.css"
+    "/build/assets/ProductImageGallery-PqcnGb5H.js",
+    "/build/assets/ProductImageGallery-CGRc8tpL.css"
   ],
   "resources/js/Homepage/assets/main.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Homepage/context/HomeContext.jsx": [
-    "/build/assets/AttachmentComponent-CRE5apCQ.js",
+    "/build/assets/AttachmentComponent-BnWqiux2.js",
     "/build/assets/AttachmentComponent-BVPYw8hg.css",
     "/build/assets/ajax-loader-BcnMEykj.gif",
     "/build/assets/slick-Bi9J8BMx.eot",
@@ -316,7 +324,7 @@
     "/build/assets/slick-BlzDm7g2.svg"
   ],
   "resources/js/Homepage/context/methods.jsx": [
-    "/build/assets/AttachmentComponent-CRE5apCQ.js",
+    "/build/assets/AttachmentComponent-BnWqiux2.js",
     "/build/assets/AttachmentComponent-BVPYw8hg.css",
     "/build/assets/ajax-loader-BcnMEykj.gif",
     "/build/assets/slick-Bi9J8BMx.eot",
@@ -325,7 +333,7 @@
     "/build/assets/slick-BlzDm7g2.svg"
   ],
   "resources/js/Homepage/context/reducerFunction.jsx": [
-    "/build/assets/AttachmentComponent-CRE5apCQ.js",
+    "/build/assets/AttachmentComponent-BnWqiux2.js",
     "/build/assets/AttachmentComponent-BVPYw8hg.css",
     "/build/assets/ajax-loader-BcnMEykj.gif",
     "/build/assets/slick-Bi9J8BMx.eot",
@@ -334,8 +342,8 @@
     "/build/assets/slick-BlzDm7g2.svg"
   ],
   "resources/js/Homepage/style.scss": [
-    "/build/assets/Login-ByymQ-tp.js",
-    "/build/assets/Login-DPzMOXiv.css"
+    "/build/assets/Login-DwsyLap7.js",
+    "/build/assets/Login-eAJzMoHl.css"
   ],
   "resources/js/Layouts/AuthenticatedLayout.jsx": [
     "/build/assets/Edit-DzxD5Btn.js"
@@ -344,11 +352,11 @@
     "/build/assets/GuestLayout-CLvPH6Dg.js"
   ],
   "resources/js/Layouts/HomeLayout.jsx": [
-    "/build/assets/main-B5jhsuPn.js",
-    "/build/assets/main-BWLNbAH6.css"
+    "/build/assets/main-CxuOxKVi.js",
+    "/build/assets/main-Ce8FcyYr.css"
   ],
   "resources/js/Pages/AttachmentProduct.jsx": [
-    "/build/assets/AttachmentProduct-DQ8sgMsc.js"
+    "/build/assets/AttachmentProduct-BV3Iz_5N.js"
   ],
   "resources/js/Pages/Auth/ConfirmPassword.jsx": [
     "/build/assets/ConfirmPassword-BHi5fMh_.js"
@@ -357,8 +365,8 @@
     "/build/assets/ForgotPassword-CjqYBZUd.js"
   ],
   "resources/js/Pages/Auth/Login.jsx": [
-    "/build/assets/Login-ByymQ-tp.js",
-    "/build/assets/Login-DPzMOXiv.css"
+    "/build/assets/Login-DwsyLap7.js",
+    "/build/assets/Login-eAJzMoHl.css"
   ],
   "resources/js/Pages/Auth/Register.jsx": [
     "/build/assets/Register-DuQZAZXo.js"
@@ -371,8 +379,8 @@
   ],
   "resources/js/Pages/DashRoot.jsx": [],
   "resources/js/Pages/OrderSuccess.jsx": [
-    "/build/assets/OrderSuccess-D7h7KWwO.js",
-    "/build/assets/OrderSuccess-B7oo0ZB_.css"
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ],
   "resources/js/Pages/Preloader.jsx": [
     "/build/assets/Preloader-BAWYcVLb.js"
@@ -390,45 +398,45 @@
     "/build/assets/UpdateProfileInformationForm-D0u1QRLJ.js"
   ],
   "resources/js/Pages/SpareParts.jsx": [
-    "/build/assets/SpareParts-BMMhpOQM.js"
+    "/build/assets/SpareParts-CvkB2wMc.js"
   ],
   "resources/js/Pages/Table.jsx": [
     "/build/assets/Table-Bazmr4qz.js"
   ],
   "resources/js/Pages/Welcome.jsx": [
-    "/build/assets/Welcome-D4cKMHcy.js"
+    "/build/assets/Welcome-CNloHj85.js"
   ],
   "resources/js/Pages/dashboard.scss": [],
   "resources/js/app.jsx": [],
   "resources/js/bootstrap.jsx": [],
   "resources/js/dashboards/admin/App.jsx": [],
   "resources/js/dashboards/admin/_nav.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/assets/images/avatars/8.jpg": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/components/AppBreadcrumb.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/components/AppContent.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/components/AppFooter.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/components/AppHeader.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
@@ -436,343 +444,355 @@
     "/build/assets/AppLoader-ZfOck8L3.js"
   ],
   "resources/js/dashboards/admin/components/AppSidebar.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/components/AppSidebarNav.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/components/DocsCallout.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/components/DocsExample.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/components/DocsLink.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/components/LoadingSpinner.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/components/header/AppHeaderDropdown.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/layout/DefaultLayout.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/routes.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/scss/style.scss": [],
   "resources/js/dashboards/admin/store.jsx": [],
   "resources/js/dashboards/admin/views/attachments/AttachmentForm.jsx": [
-    "/build/assets/AttachmentForm-DYMqWh-l.js"
+    "/build/assets/AttachmentForm-DTQ4bDnY.js"
+  ],
+  "resources/js/dashboards/admin/views/attachments/AttachmentList.jsx": [
+    "/build/assets/AttachmentList-jXL2TJkR.js"
   ],
   "resources/js/dashboards/admin/views/brands/BrandForm.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/brands/BrandHeader.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/brands/BrandIndex.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/brands/Brands.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/brands/context/BrandContext.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/brands/context/methods.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/brands/context/reducerFunction.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/categories/Categories.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/categories/CategoriesForm.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/categories/CategoryHeader.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/categories/context/CategoriesContext.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/categories/context/methods.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/categories/context/reducerFunction.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/categories/index.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/charts/Charts.jsx": [
-    "/build/assets/Charts-Cr_55Mwa.js"
+    "/build/assets/Charts-n0S5z6zW.js"
   ],
   "resources/js/dashboards/admin/views/dashboard/Dashboard.jsx": [
     "/build/assets/Dashboard-kGu52r3Z.js"
   ],
   "resources/js/dashboards/admin/views/orders/OrderDetailsPage.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/orders/Orders.jsx": [
-    "/build/assets/OrdersApp-VSfKgG3S.js"
+    "/build/assets/OrdersApp-CPKZhHHq.js"
   ],
   "resources/js/dashboards/admin/views/orders/OrdersApp.jsx": [
-    "/build/assets/OrdersApp-VSfKgG3S.js"
+    "/build/assets/OrdersApp-CPKZhHHq.js"
   ],
   "resources/js/dashboards/admin/views/orders/OrdesHeader.jsx": [
-    "/build/assets/OrdersApp-VSfKgG3S.js"
+    "/build/assets/OrdersApp-CPKZhHHq.js"
   ],
   "resources/js/dashboards/admin/views/orders/context/methods.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/orders/style.scss": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/pages/about/AboutSettings.jsx": [
-    "/build/assets/HomeSettingApp-DPaGhB5p.js"
+    "/build/assets/HomeSettingApp-CI4jMBqB.js"
   ],
   "resources/js/dashboards/admin/views/pages/about_us/AboutUs.jsx": [
-    "/build/assets/AboutUsApp-B1e_fWCC.js"
+    "/build/assets/AboutUsApp-CUYASKXZ.js"
   ],
   "resources/js/dashboards/admin/views/pages/about_us/AboutUsApp.jsx": [
-    "/build/assets/AboutUsApp-B1e_fWCC.js"
+    "/build/assets/AboutUsApp-CUYASKXZ.js"
   ],
   "resources/js/dashboards/admin/views/pages/blogs/BlogFrom.jsx": [
-    "/build/assets/Blogs-UCdB9pKe.js"
+    "/build/assets/Blogs-B7RHZort.js"
   ],
   "resources/js/dashboards/admin/views/pages/blogs/Blogs.jsx": [
-    "/build/assets/Blogs-UCdB9pKe.js"
+    "/build/assets/Blogs-B7RHZort.js"
   ],
   "resources/js/dashboards/admin/views/pages/contact/ContactIndex.jsx": [
-    "/build/assets/ContactIndex-CfGcN6cs.js"
+    "/build/assets/ContactIndex-DgRTe303.js"
   ],
   "resources/js/dashboards/admin/views/pages/contact/ContactSettings.jsx": [
-    "/build/assets/ContactIndex-CfGcN6cs.js"
+    "/build/assets/ContactIndex-DgRTe303.js"
   ],
   "resources/js/dashboards/admin/views/pages/context/PageContext.jsx": [
-    "/build/assets/PageContext-BvCxP2Sv.js"
+    "/build/assets/PageContext-DXogRDn-.js"
   ],
   "resources/js/dashboards/admin/views/pages/context/methods.jsx": [
-    "/build/assets/PageContext-BvCxP2Sv.js"
+    "/build/assets/PageContext-DXogRDn-.js"
   ],
   "resources/js/dashboards/admin/views/pages/context/reducerFunction.jsx": [
-    "/build/assets/PageContext-BvCxP2Sv.js"
+    "/build/assets/PageContext-DXogRDn-.js"
   ],
   "resources/js/dashboards/admin/views/pages/faq/FAQForm.jsx": [
-    "/build/assets/FAQIndex-CZzSdgjv.js"
+    "/build/assets/FAQIndex-DZHElXD_.js"
   ],
   "resources/js/dashboards/admin/views/pages/faq/FAQIndex.jsx": [
-    "/build/assets/FAQIndex-CZzSdgjv.js"
+    "/build/assets/FAQIndex-DZHElXD_.js"
   ],
   "resources/js/dashboards/admin/views/pages/homepage/HomeSettingApp.jsx": [
-    "/build/assets/HomeSettingApp-DPaGhB5p.js"
+    "/build/assets/HomeSettingApp-CI4jMBqB.js"
   ],
   "resources/js/dashboards/admin/views/pages/homepage/HomeSettings.jsx": [
-    "/build/assets/HomeSettingApp-DPaGhB5p.js"
+    "/build/assets/HomeSettingApp-CI4jMBqB.js"
   ],
   "resources/js/dashboards/admin/views/pages/user_reviews/ReviewForm.jsx": [
-    "/build/assets/UserReviewIndex-TrXGJk9S.js"
+    "/build/assets/UserReviewIndex-xZdP48be.js"
   ],
   "resources/js/dashboards/admin/views/pages/user_reviews/UserReviewIndex.jsx": [
-    "/build/assets/UserReviewIndex-TrXGJk9S.js"
+    "/build/assets/UserReviewIndex-xZdP48be.js"
   ],
   "resources/js/dashboards/admin/views/products/ProductForm.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/products/ProductHeader.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/products/ProductIndex.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/products/ProductReviews.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/products/Products.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/products/context/ProductContext.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/products/context/methods.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/products/context/reducerFunction.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/quries/QuriesHeader.jsx": [
-    "/build/assets/index-D2eFM-Uv.js"
+    "/build/assets/index-Ds-lQYup.js"
   ],
   "resources/js/dashboards/admin/views/quries/QuriesList.jsx": [
-    "/build/assets/index-D2eFM-Uv.js"
+    "/build/assets/index-Ds-lQYup.js"
   ],
   "resources/js/dashboards/admin/views/quries/context/QuriesContext.jsx": [
-    "/build/assets/index-D2eFM-Uv.js"
+    "/build/assets/index-Ds-lQYup.js"
   ],
   "resources/js/dashboards/admin/views/quries/context/methods.jsx": [
-    "/build/assets/index-D2eFM-Uv.js"
+    "/build/assets/index-Ds-lQYup.js"
   ],
   "resources/js/dashboards/admin/views/quries/context/reducerFunction.jsx": [
-    "/build/assets/index-D2eFM-Uv.js"
+    "/build/assets/index-Ds-lQYup.js"
   ],
   "resources/js/dashboards/admin/views/quries/index.jsx": [
-    "/build/assets/index-D2eFM-Uv.js"
+    "/build/assets/index-Ds-lQYup.js"
   ],
   "resources/js/dashboards/admin/views/solutions/SolutionForm.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
+    "/build/assets/DefaultLayout-D7kK24yK.css",
+    "/build/assets/8-CQnrj2m9.jpg"
+  ],
+  "resources/js/dashboards/admin/views/solutions/SolutionProductsManager.jsx": [
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/solutions/Solutions.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/solutions/SolutionsIndex.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/solutions/context/SolutionsContext.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/spare_parts/ProductHeader.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/spare_parts/ProductReviews.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/spare_parts/SpareParts.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/spare_parts/SparePartsForm.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/spare_parts/SparePartsIndex.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/spare_parts/context/ProductContext.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/spare_parts/context/methods.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/spare_parts/context/reducerFunction.jsx": [
-    "/build/assets/DefaultLayout-CQKz9vmn.js",
+    "/build/assets/DefaultLayout-CdjuhZAb.js",
     "/build/assets/DefaultLayout-D7kK24yK.css",
     "/build/assets/8-CQnrj2m9.jpg"
   ],
   "resources/js/dashboards/admin/views/transactions/TransactionApp.jsx": [
-    "/build/assets/TransactionApp-CvKd5oUs.js"
+    "/build/assets/TransactionApp-B_8SWe2x.js"
   ],
   "resources/js/dashboards/admin/views/transactions/TransactionHeader.jsx": [
-    "/build/assets/TransactionApp-CvKd5oUs.js"
+    "/build/assets/TransactionApp-B_8SWe2x.js"
   ],
   "resources/js/dashboards/admin/views/transactions/Transactions.jsx": [
-    "/build/assets/TransactionApp-CvKd5oUs.js"
+    "/build/assets/TransactionApp-B_8SWe2x.js"
   ],
   "resources/js/dashboards/admin/views/transactions/context/methods.jsx": [
-    "/build/assets/TransactionApp-CvKd5oUs.js"
+    "/build/assets/TransactionApp-B_8SWe2x.js"
   ],
   "resources/js/dashboards/admin/views/widgets/Widgets.jsx": [
-    "/build/assets/Widgets-gYmLQJfl.js"
+    "/build/assets/Widgets-DnH6jWDv.js"
   ],
   "resources/js/dashboards/admin/views/widgets/WidgetsBrand.jsx": [
-    "/build/assets/Widgets-gYmLQJfl.js"
+    "/build/assets/Widgets-DnH6jWDv.js"
   ],
   "resources/js/dashboards/admin/views/widgets/WidgetsDropdown.jsx": [
-    "/build/assets/Widgets-gYmLQJfl.js"
+    "/build/assets/Widgets-DnH6jWDv.js"
   ],
   "resources/js/utils/helpers.jsx": [
-    "/build/assets/helpers-isL4n3oi.js"
+    "/build/assets/helpers-D56oASBL.js"
+  ],
+  "resources/js/utils/useMobileDetector.jsx": [
+    "/build/assets/OrderSuccess-Dpnj_0G2.js",
+    "/build/assets/OrderSuccess-CzC4Nr3C.css"
   ]
 }

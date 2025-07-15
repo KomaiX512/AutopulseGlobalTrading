@@ -10,10 +10,15 @@ export default defineConfig({
                 'resources/js/Pages/DashRoot.jsx'
             ],
             refresh: true,
+            valetTls: true,
         }),
         react(),
     ],
     server: {
-        port: 5174,
+        host: true,
+        hmr: {
+            host: process.env.VITE_APP_URL ? new URL(process.env.VITE_APP_URL).hostname : 'localhost',
+        },
+        port: 5176,
     },
 });

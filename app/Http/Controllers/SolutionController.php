@@ -6,6 +6,7 @@ use App\Models\Solution;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class SolutionController extends Controller
 {
@@ -44,6 +45,7 @@ class SolutionController extends Controller
     {
         $perPage = $request->get('per_page', 15);
         $search = $request->get('search');
+        $isViewable = $request->get('is_viewable');
         
         $query = Solution::withCount('products');
         
@@ -54,11 +56,23 @@ class SolutionController extends Controller
             });
         }
         
+        // Handle visibility filter
+        if ($isViewable !== null && $isViewable !== '') {
+            $query->where('is_active', $isViewable);
+        }
+        
         $solutions = $query->orderBy('created_at', 'desc')->paginate($perPage);
         
+        // Transform the response to match frontend expectations
         return response()->json([
-            'success' => true, 
-            'solutions' => $solutions
+            'success' => true,
+            'data' => $solutions->items(),
+            'current_page' => $solutions->currentPage(),
+            'last_page' => $solutions->lastPage(),
+            'per_page' => $solutions->perPage(),
+            'total' => $solutions->total(),
+            'from' => $solutions->firstItem(),
+            'to' => $solutions->lastItem(),
         ]);
     }
 
@@ -70,18 +84,23 @@ class SolutionController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|string',
-            'is_viewable' => 'boolean',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'is_active' => 'boolean',
             'product_ids' => 'nullable|array',
             'product_ids.*' => 'exists:products,id'
         ]);
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/images/solutions');
+        }
 
         $solution = Solution::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'description' => $request->description,
-            'image' => $request->image,
-            'is_viewable' => $request->get('is_viewable', true)
+            'image' => $imagePath,
+            'is_active' => $request->get('is_active', true)
         ]);
 
         if ($request->product_ids) {
@@ -101,7 +120,7 @@ class SolutionController extends Controller
     public function show($id)
     {
         $solution = Solution::with('products')->findOrFail($id);
-        return response()->json(['success' => true, 'solution' => $solution]);
+        return response()->json($solution);
     }
 
     /**
@@ -112,20 +131,29 @@ class SolutionController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|string',
-            'is_viewable' => 'boolean',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'is_active' => 'boolean',
             'product_ids' => 'nullable|array',
             'product_ids.*' => 'exists:products,id'
         ]);
 
         $solution = Solution::findOrFail($id);
         
+        $imagePath = $solution->image; // Keep existing image by default
+        if ($request->hasFile('image')) {
+            // Delete old image if it exists
+            if ($solution->image) {
+                Storage::delete($solution->image);
+            }
+            $imagePath = $request->file('image')->store('public/images/solutions');
+        }
+        
         $solution->update([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'description' => $request->description,
-            'image' => $request->image,
-            'is_viewable' => $request->get('is_viewable', true)
+            'image' => $imagePath,
+            'is_active' => $request->get('is_active', true)
         ]);
 
         // Sync products
@@ -146,6 +174,12 @@ class SolutionController extends Controller
     public function destroy($id)
     {
         $solution = Solution::findOrFail($id);
+        
+        // Delete image if it exists
+        if ($solution->image) {
+            Storage::delete($solution->image);
+        }
+        
         $solution->products()->detach(); // Remove product relationships
         $solution->delete();
 
@@ -175,10 +209,8 @@ class SolutionController extends Controller
         
         $products = $query->limit(50)->get();
         
-        return response()->json([
-            'success' => true, 
-            'products' => $products
-        ]);
+        // Return products array directly for frontend compatibility
+        return response()->json($products);
     }
 
     /**
@@ -196,7 +228,8 @@ class SolutionController extends Controller
 
         return response()->json([
             'success' => true, 
-            'message' => 'Products assigned successfully'
+            'message' => 'Products assigned successfully',
+            'solution' => $solution->load('products')
         ]);
     }
 
@@ -215,7 +248,8 @@ class SolutionController extends Controller
 
         return response()->json([
             'success' => true, 
-            'message' => 'Products removed successfully'
+            'message' => 'Products removed successfully',
+            'solution' => $solution->load('products')
         ]);
     }
 } 

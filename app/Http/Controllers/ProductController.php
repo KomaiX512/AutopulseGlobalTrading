@@ -442,4 +442,124 @@ class ProductController extends Controller
             return response()->json(['error' => $e], 500);
         }
     }
+
+    /**
+     * Filter products by type slug
+     */
+    public function filterProductsByType($slug, Request $request)
+    {
+        try {
+            // Map URL slugs to product type names
+            $slugToNameMap = [
+                'machine' => 'Machine',
+                'electric-bikes' => 'Electric Bikes',
+                'vehicles' => 'Vehicles',
+                'machine-parts' => 'Machine Part',
+                'vehicle-parts' => 'Vehicle Part',
+                'bike-parts' => 'Bike Part',
+                'attachments' => 'Attachments & Accessories',
+                'attachments-accessories' => 'Attachments & Accessories'
+            ];
+
+            $productTypeName = $slugToNameMap[$slug] ?? $slug;
+            
+            $productType = \App\Models\ProductType::where('name', $productTypeName)->first();
+
+            if (!$productType) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Product type not found'
+                ], 404);
+            }
+
+            $searchTerm = $request->query('search_term');
+            $selectedCategories = $request->query('categories');
+            $selectedBrands = $request->query('brands');
+            $selectedPrice = $request->query('price');
+            $page = $request->query('page', 1);
+            $perPage = $request->query('per_page', 16);
+            $weights = $request->query('weights');
+            $years = $request->query('years');
+            $sortField = 'created_at';
+            $sortOrder = 'desc';
+
+            $query = $productType->products()->newQuery();
+
+            if ($searchTerm) {
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('products.name', 'LIKE', "%{$searchTerm}%")
+                        ->orWhere('products.description', 'LIKE', "%{$searchTerm}%");
+                });
+            }
+
+            if ($selectedCategories) {
+                $selectedCategoriesArray = explode(',', $selectedCategories);
+                $query->whereIn('category_id', $selectedCategoriesArray);
+            }
+
+            if ($selectedBrands) {
+                $selectedBrandsArray = explode(',', $selectedBrands);
+                $query->whereIn('brand_id', $selectedBrandsArray);
+            }
+
+            if ($selectedPrice === 'lowToHigh') {
+                $sortField = 'price';
+                $sortOrder = 'asc';
+            } elseif ($selectedPrice === 'highToLow') {
+                $sortField = 'price';
+                $sortOrder = 'desc';
+            }
+
+            if ($weights) {
+                $weightRanges = explode(',', $weights);
+                $query->where(function ($q) use ($weightRanges) {
+                    foreach ($weightRanges as $range) {
+                        switch ($range) {
+                            case 'up_to_10':
+                                $q->orWhere('weight', '<=', 10);
+                                break;
+                            case 'up_to_20':
+                                $q->orWhereBetween('weight', [11, 20]);
+                                break;
+                            case 'up_to_30':
+                                $q->orWhereBetween('weight', [21, 30]);
+                                break;
+                            case 'up_to_40':
+                                $q->orWhereBetween('weight', [31, 40]);
+                                break;
+                            case 'up_to_50':
+                                $q->orWhereBetween('weight', [41, 50]);
+                                break;
+                            case 'over_50':
+                                $q->orWhere('weight', '>', 50);
+                                break;
+                        }
+                    }
+                });
+            }
+
+            if ($years) {
+                $yearArray = explode(',', $years);
+                $query->whereIn('make', $yearArray);
+            }
+
+            $query->orderBy($sortField, $sortOrder);
+
+            $products = $query->with(['category', 'brand', 'images'])->paginate($perPage, ['*'], 'page', $page);
+
+            return response()->json([
+                'success' => true,
+                'products' => $products->items(),
+                'total' => $products->total(),
+                'current_page' => $products->currentPage(),
+                'last_page' => $products->lastPage(),
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to filter products',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }

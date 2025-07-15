@@ -36,6 +36,32 @@ const App = () => {
 
     const product = state?.selectedProduct;
 
+    // Normalize images for gallery and ensure main image is included
+    let galleryImages = product?.images?.map(img => ({
+        ...img,
+        path: img.path || img.image_path,
+    })) || [];
+
+    // Ensure main image is included in gallery if it exists and is not already present
+    if (product?.image) {
+        const mainImagePath = product.image.replace('public', '/storage');
+        const mainImageAlreadyInGallery = galleryImages.some(img => {
+            const imgPath = (img.path || img.image_path)?.replace('public', '/storage');
+            return imgPath === mainImagePath;
+        });
+        
+        if (!mainImageAlreadyInGallery) {
+            galleryImages = [
+                { 
+                    path: product.image, 
+                    alt: product.name || 'Main Image',
+                    isMainImage: true 
+                },
+                ...galleryImages
+            ];
+        }
+    }
+
     return (
         <div className="product-page-container">
             {/* Hero Section with Product Image */}
@@ -52,7 +78,7 @@ const App = () => {
                     {/* Left Column - Images */}
                     <Col xs={24} lg={12}>
                         <ProductImageGallery 
-                            images={product?.images}
+                            images={galleryImages}
                             height="400px"
                             showThumbnails={true}
                             thumbnailCount={4}

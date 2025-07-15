@@ -58,9 +58,7 @@ export async function saveCategory(formValues, id = null) {
     try {
 
         if (id) {
-
             formValues.append('id', id);
-
         }
 
         const method = 'post';
@@ -69,21 +67,38 @@ export async function saveCategory(formValues, id = null) {
         const response = await ajaxRequest(method, api, formValues, config);
 
         if (response.success) {
-
             ShowToast({ message: id ? 'Category updated successfully' : 'New category added', icon: <SmileOutlined color="green" /> })
-
-            return true
+            return true;
+        } else {
+            // Show validation errors if available
+            if (response.errors) {
+                const errorMessages = Object.values(response.errors).flat().join(', ');
+                ShowToast({ message: 'Validation errors: ' + errorMessages });
+            } else {
+                ShowToast({ message: response.message || 'Failed to save category' });
         }
-
-        return false
+            return false;
+        }
 
     } catch (error) {
 
         console.error('Error:', error);
 
-        ShowToast({ message: 'Sorry, There was an error creating category' })
+        // Show specific error message if available
+        if (error.response && error.response.data) {
+            if (error.response.data.errors) {
+                const errorMessages = Object.values(error.response.data.errors).flat().join(', ');
+                ShowToast({ message: 'Validation errors: ' + errorMessages });
+            } else if (error.response.data.message) {
+                ShowToast({ message: error.response.data.message });
+            } else {
+                ShowToast({ message: 'Sorry, There was an error creating category' });
+            }
+        } else {
+            ShowToast({ message: 'Sorry, There was an error creating category' });
+        }
 
-        return false
+        return false;
 
     }
 

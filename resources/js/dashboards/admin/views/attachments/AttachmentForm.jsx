@@ -1,129 +1,455 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import UploadImage from '@/Components/UploadImage';
-import { Checkbox, Tooltip, message } from 'antd';
+import { Checkbox, Tooltip, message, Form, Input, Select, InputNumber, Button, Card, Row, Col, Divider, Upload, Image } from 'antd';
+import { SaveOutlined, ArrowLeftOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
+import Ck5Editor from '@/Homepage/Components/CK5Editor';
+import { ajaxRequest } from '@/utils/helpers';
+
+const { Option } = Select;
+const { TextArea } = Input;
 
 function AttachmentForm() {
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [isViewable, setIsViewable] = useState(true);
+  const [form] = Form.useForm();
+  const [selectedImages, setSelectedImages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [productTypes, setProductTypes] = useState([]);
+  const [isEdit, setIsEdit] = useState(false);
+  const [attachmentData, setAttachmentData] = useState(null);
+  
+  const navigate = useNavigate();
+  const { id } = useParams();
 
-  function handleViewableCheckbox() {
-    setIsViewable(!isViewable);
-  }
+  useEffect(() => {
+    loadCategories();
+    loadBrands();
+    loadProductTypes();
+    
+    if (id) {
+      setIsEdit(true);
+      loadAttachment(id);
+    }
+  }, [id]);
 
-  async function submitForm(e) {
-    e.preventDefault();
+  const loadCategories = async () => {
+    try {
+      // Load only "Attachments & Accessories" categories (product_type_id = 7)
+      const response = await axios.get('/api/get/categories?product_type_id=7');
+      setCategories(response.data.categories || []);
+    } catch (error) {
+      console.error('Error loading categories:', error);
+    }
+  };
+
+  const loadBrands = async () => {
+    try {
+      const response = await axios.get('/api/get/brands');
+      setBrands(response.data.brands || []);
+    } catch (error) {
+      console.error('Error loading brands:', error);
+    }
+  };
+
+  const loadProductTypes = async () => {
+    try {
+      const response = await axios.get('/api/get/product-types');
+      setProductTypes(response.data.productTypes || []);
+    } catch (error) {
+      console.error('Error loading product types:', error);
+    }
+  };
+
+  const loadAttachment = async (attachmentId) => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`/api/get/attachment/${attachmentId}`);
+      const attachment = response.data.attachment;
+      setAttachmentData(attachment);
+      
+      // Load existing images if editing
+      if (attachment.images && attachment.images.length > 0) {
+        setSelectedImages(attachment.images.map(img => ({
+          uid: img.id,
+          name: img.filename || 'image',
+          status: 'done',
+          url: img.path?.replace('public', '/storage')
+        })));
+      }
+      
+      form.setFieldsValue({
+        name: attachment.name,
+        description: attachment.description,
+        features: attachment.features,
+        category_id: attachment.category_id,
+        brand_id: attachment.brand_id,
+        price: attachment.price,
+        stock: attachment.stock,
+        type: attachment.type || 'customer',
+        is_viewable: attachment.is_viewable
+      });
+    } catch (error) {
+      console.error('Error loading attachment:', error);
+      message.error('Failed to load attachment data');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleImageChange = (info) => {
+    setSelectedImages(info.fileList);
+  };
+
+  const onFinish = async (values) => {
     setLoading(true);
 
     try {
       const formData = new FormData();
-      formData.append('name', name);
-      formData.append('description', description);
-      formData.append('is_viewable', isViewable ? 1 : 0);
       
-      if (selectedImage) {
-        formData.append('image', selectedImage.originFileObj);
-      }
-
-      const response = await axios.post('/api/save/attachment', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      // Get current form values including CK5Editor content
+      const currentValues = form.getFieldsValue();
+      
+      // Add all form values, ensuring correct types
+      Object.keys(currentValues).forEach(key => {
+        let value = currentValues[key];
+        if (value === undefined || value === null || value === '') return;
+        if (key === 'is_viewable') value = value ? 1 : 0;
+        if (key === 'price' || key === 'stock') value = Number(value);
+        formData.append(key, value);
+      });
+      
+      // Also add values from the onFinish parameter as backup
+      Object.keys(values).forEach(key => {
+        let value = values[key];
+        if (value === undefined || value === null || value === '') return;
+        if (key === 'is_viewable') value = value ? 1 : 0;
+        if (key === 'price' || key === 'stock') value = Number(value);
+        // Only append if not already added
+        if (!formData.has(key)) {
+          formData.append(key, value);
+        }
+      });
+      
+      // Add multiple images
+      selectedImages.forEach((file, index) => {
+        if (file.originFileObj) {
+          formData.append(`images[${index}]`, file.originFileObj);
+        }
       });
 
-      if (response.data.success) {
-        message.success('Attachment created successfully!');
-        // Reset form
-        setName('');
-        setDescription('');
-        setSelectedImage(null);
-        setIsViewable(true);
-        e.target.reset();
+      // Debug: Log what's being sent
+      console.log('Form values being sent:', values);
+      console.log('Current form values:', currentValues);
+      console.log('Selected images:', selectedImages);
+      
+      // Debug: Log FormData contents
+      for (let [key, value] of formData.entries()) {
+        console.log(`FormData ${key}:`, value);
+      }
+      
+      // Debug: Log update data if editing
+      if (isEdit) {
+        const updateData = {
+          name: currentValues.name,
+          description: currentValues.description,
+          features: currentValues.features,
+          category_id: currentValues.category_id,
+          brand_id: currentValues.brand_id,
+          price: Number(currentValues.price),
+          stock: Number(currentValues.stock),
+          type: currentValues.type,
+          is_viewable: currentValues.is_viewable ? 1 : 0
+        };
+        console.log('Update data being sent:', updateData);
+      }
+
+      let response;
+      if (isEdit) {
+        // For updates, send as JSON (no file uploads in updates)
+        const updateData = {
+          name: currentValues.name,
+          description: currentValues.description,
+          features: currentValues.features,
+          category_id: currentValues.category_id,
+          brand_id: currentValues.brand_id,
+          price: Number(currentValues.price),
+          stock: Number(currentValues.stock),
+          type: currentValues.type,
+          is_viewable: currentValues.is_viewable ? 1 : 0
+        };
+        
+        response = await axios.post(`/api/update/attachment/${id}`, updateData, {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          withCredentials: true
+        });
       } else {
-        message.error('Failed to create attachment');
+        response = await axios.post('/api/save/attachment', formData, {
+          headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          withCredentials: true
+        });
+      }
+
+      if (response.data.success) {
+        message.success(`Attachment ${isEdit ? 'updated' : 'created'} successfully!`);
+        navigate('/attachments/list');
+      } else {
+        message.error(response.data.message || `Failed to ${isEdit ? 'update' : 'create'} attachment`);
       }
     } catch (error) {
-      console.error('Error creating attachment:', error);
-      message.error('Error creating attachment');
+      console.error('Error saving attachment:', error);
+      
+      // Show backend validation errors if present
+      if (error.response && error.response.data && error.response.data.errors) {
+        const errors = error.response.data.errors;
+        Object.keys(errors).forEach(key => {
+          message.error(`${key}: ${errors[key].join(', ')}`);
+        });
+      } else if (error.response && error.response.data && error.response.data.message) {
+        message.error(error.response.data.message);
+      } else if (error.message) {
+        message.error(error.message);
+      } else {
+        message.error(`Error ${isEdit ? 'updating' : 'creating'} attachment`);
+      }
     } finally {
       setLoading(false);
     }
-  }
+  };
+
+  const uploadProps = {
+    listType: 'picture-card',
+    fileList: selectedImages,
+    onChange: handleImageChange,
+    beforeUpload: () => false, // Prevent auto upload
+    multiple: true,
+    accept: 'image/*'
+  };
 
   return (
-    <div className='form'>
-      <h2 className="text-xl font-bold mb-4">Add New Attachment</h2>
-      
-      <form className="flex flex-col p-3 bg-white" style={{ gap: '10px' }} onSubmit={submitForm}>
-        <label className='flex flex-col my-4' htmlFor="image">
-          <span className="mb-2">Attachment Image</span>
-          <div className="relative">
-            <UploadImage
-              setSelectedFile={setSelectedImage} 
-            />
-            <label className="flex-column py-3" style={{ width: "fit-content" }} htmlFor="">
-              <Checkbox
-                name="is_viewable"
-                style={{ color: 'green', textDecoration: 'underline' }}
-                onChange={handleViewableCheckbox}
-                checked={isViewable}
-              >
-                <Tooltip title={'Check this box to make this attachment visible on homepage'}>
-                  Make This Attachment Visible On Homepage?
-                </Tooltip>
-              </Checkbox>
-            </label>
-          </div>
-        </label>
-
-        <label className='flex flex-col' htmlFor="">
-          <span>Attachment Name</span>
-          <input
-            type="text"
-            name='name'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="p-2 border border-gray-300 rounded"
-            placeholder="e.g., Hydraulic Hammer"
-          />
-        </label>
-
-        <label className='flex flex-col' htmlFor="">
-          <span>Description</span>
-          <textarea
-            name='description'
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-            rows={4}
-            className="p-2 border border-gray-300 rounded"
-            placeholder="Describe the attachment and its uses..."
-          />
-        </label>
-
-        <button 
-          type='submit' 
-          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          disabled={loading}
+    <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <Button 
+          icon={<ArrowLeftOutlined />} 
+          onClick={() => navigate('/attachments/list')}
         >
-          {loading ? 'Creating...' : 'Create Attachment'}
-        </button>
-      </form>
-
-      <div className="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded">
-        <h3 className="font-bold text-yellow-800">Real-time Testing Instructions:</h3>
-        <ol className="list-decimal list-inside mt-2 text-yellow-700">
-          <li>Fill out the form above with attachment details</li>
-          <li>Upload an image for the attachment</li>
-          <li>Click "Create Attachment"</li>
-          <li>Go to the homepage (localhost:8000) and refresh</li>
-          <li>Check if your new attachment appears in the "Attachments & Accessories" section</li>
-        </ol>
+          Back to List
+        </Button>
+        <h2 style={{ margin: 0 }}>
+          {isEdit ? 'Edit Attachment' : 'Add New Attachment'}
+        </h2>
       </div>
+
+      <Form
+        form={form}
+        layout="vertical"
+        onFinish={onFinish}
+        initialValues={{
+          type: 'customer',
+          is_viewable: true,
+          stock: 1
+        }}
+      >
+        <Row gutter={24}>
+          <Col xs={24} lg={16}>
+            <Card title="Basic Information" style={{ marginBottom: '24px' }}>
+              <Row gutter={16}>
+                <Col xs={24} md={12}>
+                  <Form.Item
+                    name="name"
+                    label="Attachment Name"
+                    rules={[{ required: true, message: 'Please enter attachment name' }]}
+                  >
+                    <Input placeholder="e.g., Hydraulic Hammer" />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} md={12}>
+                  <Form.Item
+                    name="type"
+                    label="Type"
+                    rules={[{ required: true, message: 'Please select type' }]}
+                  >
+                    <Select placeholder="Select type">
+                      <Option value="customer">Customer</Option>
+                      <Option value="business">Business</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
+              </Row>
+
+              <Row gutter={16}>
+                <Col xs={24} md={12}>
+                  <Form.Item
+                    name="category_id"
+                    label="Category"
+                    rules={[{ required: true, message: 'Please select category' }]}
+                  >
+                    <Select placeholder="Select category" showSearch>
+                      {categories.map(category => (
+                        <Option key={category.id} value={category.id}>
+                          {category.name} {category.productType ? `(${category.productType.name})` : ''}
+                        </Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                </Col>
+                <Col xs={24} md={12}>
+                  <Form.Item
+                    name="brand_id"
+                    label="Brand"
+                  >
+                    <Select placeholder="Select brand" allowClear showSearch>
+                      {brands.map(brand => (
+                        <Option key={brand.id} value={brand.id}>
+                          {brand.name}
+                        </Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                </Col>
+              </Row>
+
+              <Row gutter={16}>
+                <Col xs={24} md={12}>
+                  <Form.Item
+                    name="price"
+                    label="Price ($)"
+                    rules={[{ required: true, message: 'Please enter price' }]}
+                  >
+                    <InputNumber
+                      style={{ width: '100%' }}
+                      placeholder="0.00"
+                      min={0}
+                      precision={2}
+                      formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      parser={value => value.replace(/\$\s?|(,*)/g, '')}
+                    />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} md={12}>
+                  <Form.Item
+                    name="stock"
+                    label="Stock Quantity"
+                    rules={[{ required: true, message: 'Please enter stock quantity' }]}
+                  >
+                    <InputNumber
+                      style={{ width: '100%' }}
+                      placeholder="0"
+                      min={0}
+                      precision={0}
+                    />
+                  </Form.Item>
+                </Col>
+              </Row>
+            </Card>
+
+            <Card title="Description & Features" style={{ marginBottom: '24px' }}>
+              <Form.Item
+                name="description"
+                label="Description"
+                rules={[{ required: true, message: 'Please enter description' }]}
+              >
+                <div>
+                  <Ck5Editor
+                    name="description"
+                    defaultValue=""
+                    onChange={(value) => {
+                      console.log('Description changed:', value);
+                      form.setFieldsValue({ description: value });
+                    }}
+                  />
+                </div>
+              </Form.Item>
+
+              <Form.Item
+                name="features"
+                label="Features"
+              >
+                <div>
+                  <Ck5Editor
+                    name="features"
+                    defaultValue=""
+                    onChange={(value) => {
+                      console.log('Features changed:', value);
+                      form.setFieldsValue({ features: value });
+                    }}
+                  />
+                </div>
+              </Form.Item>
+            </Card>
+          </Col>
+
+          <Col xs={24} lg={8}>
+            <Card title="Images & Settings">
+              <Form.Item label="Attachment Images">
+                <Upload {...uploadProps}>
+                  {selectedImages.length < 8 && (
+                    <div>
+                      <PlusOutlined />
+                      <div style={{ marginTop: 8 }}>Upload</div>
+                    </div>
+                  )}
+                </Upload>
+                <div style={{ fontSize: '12px', color: '#666', marginTop: '8px' }}>
+                  You can upload up to 8 images. First image will be the main image.
+                </div>
+              </Form.Item>
+
+              <Divider />
+
+              <Form.Item
+                name="is_viewable"
+                valuePropName="checked"
+              >
+                <Checkbox>
+                  <Tooltip title="Check this box to make this attachment visible on homepage">
+                    Make This Attachment Visible On Homepage
+                  </Tooltip>
+                </Checkbox>
+              </Form.Item>
+
+              <Divider />
+
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  icon={<SaveOutlined />}
+                  loading={loading}
+                  size="large"
+                  style={{ width: '100%' }}
+                >
+                  {loading ? 'Saving...' : (isEdit ? 'Update Attachment' : 'Create Attachment')}
+                </Button>
+              </Form.Item>
+            </Card>
+          </Col>
+        </Row>
+      </Form>
+
+      {!isEdit && (
+        <Card style={{ marginTop: '24px', backgroundColor: '#f6ffed', borderColor: '#b7eb8f' }}>
+          <h3 style={{ color: '#52c41a', marginBottom: '12px' }}>Quick Tips:</h3>
+          <ul style={{ color: '#52c41a', margin: 0, paddingLeft: '20px' }}>
+            <li>Upload multiple high-quality images for better presentation</li>
+            <li>First image will be used as the main display image</li>
+            <li>Provide detailed description and features for better customer understanding</li>
+            <li>Set appropriate pricing and stock levels</li>
+            <li>Choose the right category for better organization</li>
+            <li>Make attachments visible to show them on the homepage</li>
+          </ul>
+        </Card>
+      )}
     </div>
   );
 }

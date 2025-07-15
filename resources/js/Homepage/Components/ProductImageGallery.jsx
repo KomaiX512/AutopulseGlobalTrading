@@ -13,6 +13,7 @@ const ProductImageGallery = ({
 }) => {
     const [nav1, setNav1] = useState(null);
     const [nav2, setNav2] = useState(null);
+    const [imageErrors, setImageErrors] = useState(new Set());
     
     const sliderRef1 = useRef(null);
     const sliderRef2 = useRef(null);
@@ -22,14 +23,38 @@ const ProductImageGallery = ({
         setNav2(sliderRef2.current);
     }, []);
 
-    // Prepare images array with fallback
+    // Prepare images array with fallback and error handling
     const processedImages = images && images.length > 0 
-        ? images.map(img => ({
-            ...img,
-            src: img?.image_path?.replace('public', '/storage') || fallbackImage,
-            alt: img?.alt || 'Product Image'
-        }))
-        : [{ src: fallbackImage, alt: 'Default Product Image' }];
+        ? images.map(img => {
+            const imageSrc = (img?.path || img?.image_path)?.replace('public', '/storage') || fallbackImage;
+            return {
+                ...img,
+                src: imageSrc,
+                alt: img?.alt || 'Product Image',
+                originalSrc: imageSrc // Keep original for debugging
+            };
+        })
+        : [{ src: fallbackImage, alt: 'Default Product Image', originalSrc: fallbackImage }];
+
+    // Filter out images that have failed to load
+    const validImages = processedImages.filter((img, index) => {
+        if (imageErrors.has(index)) {
+            console.warn(`Image failed to load: ${img.originalSrc}`);
+            return false;
+        }
+        return true;
+    });
+
+    // If no valid images, use fallback
+    const finalImages = validImages.length > 0 ? validImages : [{ 
+        src: fallbackImage, 
+        alt: 'Default Product Image',
+        originalSrc: fallbackImage 
+    }];
+
+    const handleImageError = (index) => {
+        setImageErrors(prev => new Set([...prev, index]));
+    };
 
     const mainSliderSettings = {
         asNavFor: nav2,
@@ -37,7 +62,7 @@ const ProductImageGallery = ({
         fade: true,
         arrows: true,
         dots: false,
-        infinite: processedImages.length > 1,
+        infinite: finalImages.length > 1,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -47,19 +72,19 @@ const ProductImageGallery = ({
     const thumbnailSettings = {
         asNavFor: nav1,
         ref: sliderRef2,
-        slidesToShow: Math.min(thumbnailCount, processedImages.length),
+        slidesToShow: Math.min(thumbnailCount, finalImages.length),
         slidesToScroll: 1,
-        arrows: processedImages.length > thumbnailCount,
+        arrows: finalImages.length > thumbnailCount,
         dots: false,
-        infinite: processedImages.length > thumbnailCount,
+        infinite: finalImages.length > thumbnailCount,
         focusOnSelect: true,
         vertical: false,
-        centerMode: processedImages.length > thumbnailCount,
+        centerMode: finalImages.length > thumbnailCount,
         responsive: [
             {
                 breakpoint: 768,
                 settings: {
-                    slidesToShow: Math.min(3, processedImages.length),
+                    slidesToShow: Math.min(3, finalImages.length),
                     vertical: false,
                     arrows: false,
                 }
@@ -67,7 +92,7 @@ const ProductImageGallery = ({
             {
                 breakpoint: 480,
                 settings: {
-                    slidesToShow: Math.min(2, processedImages.length),
+                    slidesToShow: Math.min(2, finalImages.length),
                     vertical: false,
                     arrows: false,
                 }
@@ -77,11 +102,33 @@ const ProductImageGallery = ({
 
     return (
         <div className="product-image-gallery">
+            {/* Debug info - remove in production */}
+            {process.env.NODE_ENV === 'development' && (
+                <div style={{ 
+                    background: '#f0f0f0', 
+                    padding: '10px', 
+                    margin: '10px 0', 
+                    fontSize: '12px',
+                    borderRadius: '4px'
+                }}>
+                    <strong>Debug Info:</strong><br/>
+                    Total images: {images?.length || 0}<br/>
+                    Valid images: {finalImages.length}<br/>
+                    Failed images: {imageErrors.size}<br/>
+                    {images?.map((img, idx) => (
+                        <div key={idx}>
+                            Image {idx + 1}: {(img?.path || img?.image_path)?.replace('public', '/storage')} 
+                            {imageErrors.has(idx) ? ' ❌' : ' ✅'}
+                        </div>
+                    ))}
+                </div>
+            )}
+
             {/* Main Image Slider */}
             <div className="main-image-container">
                 <Image.PreviewGroup>
                     <Slider {...mainSliderSettings}>
-                        {processedImages.map((image, index) => (
+                        {finalImages.map((image, index) => (
                             <div key={index} className="main-image-slide">
                                 <Image
                                     src={image.src}
@@ -106,6 +153,8 @@ const ProductImageGallery = ({
                                             Loading...
                                         </div>
                                     }
+                                    onError={() => handleImageError(index)}
+                                    fallback={fallbackImage}
                                 />
                             </div>
                         ))}
@@ -114,12 +163,12 @@ const ProductImageGallery = ({
             </div>
 
             {/* Thumbnail Slider */}
-            {showThumbnails && processedImages.length > 1 && (
+            {showThumbnails && finalImages.length > 1 && (
                 <div className="thumbnail-container">
                     <Slider {...thumbnailSettings}>
-                        {processedImages.map((image, index) => (
+                        {finalImages.map((image, index) => (
                             <div key={index} className="thumbnail-slide">
-                                <img
+                                <Image
                                     src={image.src}
                                     alt={`Thumbnail ${index + 1}`}
                                     className="thumbnail-image"
@@ -133,6 +182,9 @@ const ProductImageGallery = ({
                                         margin: '0 5px',
                                         transition: 'all 0.3s ease'
                                     }}
+                                    onError={() => handleImageError(index)}
+                                    fallback={fallbackImage}
+                                    preview={false}
                                 />
                             </div>
                         ))}

@@ -297,8 +297,11 @@ Route::prefix('api')->group(function () {
     Route::get('get/attachment/categories', [AttachmentController::class, 'getAttachmentCategories'])->name('get.attachment.categories');
     Route::get('test/attachment/categories', function() { return response()->json(['test' => 'working', 'time' => now()]); });
     Route::get('get/attachment/categories/fixed', function() { 
-        $categoryIds = App\Models\Attachment::distinct()->pluck('category_id')->filter();
-        $categories = App\Models\Category::whereIn('id', $categoryIds)->get();
+        // Get all viewable "Attachments & Accessories" categories, regardless of whether they have attachments
+        $categories = App\Models\Category::where('product_type_id', 7)
+            ->where('is_viewable', 1)
+            ->orderBy('name')
+            ->get();
         return response()->json($categories);
     });
     Route::get('attachment/details/{slug}', [AttachmentController::class, 'getAttachmentDetails'])->name('attachment.details');
@@ -307,6 +310,7 @@ Route::prefix('api')->group(function () {
     Route::get('get/product/{slug?}', [ProductController::class, 'getProduct'])->name('get.product');
     Route::get('get/home/products', [ProductController::class, 'home_products'])->name('get.products.home');
     Route::get('get/home/orders', [ProductController::class, 'home_orders'])->name('home.orders');
+    Route::get('get/product-types', [ProductTypeController::class, 'index'])->name('get.product.types');
 });
 
 
@@ -389,6 +393,7 @@ Route::prefix('api')->group(function () {
 Route::prefix('api')->group(function () {
 
     Route::get('/get/product-type/cats-brands/{slug}', [ProductTypeController::class, 'getBrandsAndCats'])->name('get.producs.categories.combined');
+    Route::get('/get/product-types', [ProductTypeController::class, 'index'])->name('get.product.types');
 });
 
 
@@ -414,8 +419,9 @@ Route::middleware('auth')->group(function () {
 
         Route::controller(AttachmentController::class)->group(function () {
             Route::post('save/attachment', 'store')->name('save.attachment.details');
-            Route::post('update/attachment', 'update')->name('update.attachment.details');
-            Route::delete('delete/attachment/{id?}', 'destroy')->name('delete.attachment.details');
+            Route::post('update/attachment/{id}', 'update')->name('update.attachment.details');
+            Route::delete('delete/attachment/{id}', 'destroy')->name('delete.attachment.details');
+            Route::get('get/attachment/{id}', 'getAttachment')->name('get.attachment');
         });
 
         Route::controller(TransactionController::class)->group(function () {
@@ -430,6 +436,11 @@ Route::middleware('auth')->group(function () {
             Route::post('update/order/status', 'updateOrderStatus')->name('update.order.status');
             Route::post('upload/file', 'uploadFile')->name('update.file');
         });
+
+        // Add CSRF refresh endpoint
+        Route::get('refresh-csrf', function () {
+            return response()->json(['success' => true, 'message' => 'CSRF token refreshed']);
+        })->name('refresh.csrf');
 
 
         Route::controller(ProductImageController::class)->group(function () {
@@ -489,6 +500,8 @@ Route::get('/solutions/{slug}', function () {
     ]);
 })->name('solutions.show');
 
+
+
 // Add Solutions API routes
 Route::prefix('api')->group(function () {
     Route::get('get/home/solutions', [SolutionController::class, 'homeSolutions'])->name('get.home.solutions');
@@ -496,18 +509,20 @@ Route::prefix('api')->group(function () {
 });
 
 // Add admin solutions management routes (moved from routes/api.php because api.php is not loaded)
-Route::prefix('api')->middleware('api')->group(function () {
-    Route::prefix('admin/solutions')->group(function () {
-        Route::get('/', [App\Http\Controllers\SolutionController::class, 'index']);
-        Route::post('/', [App\Http\Controllers\SolutionController::class, 'store']);
-        Route::get('/{id}', [App\Http\Controllers\SolutionController::class, 'show']);
-        Route::put('/{id}', [App\Http\Controllers\SolutionController::class, 'update']);
-        Route::delete('/{id}', [App\Http\Controllers\SolutionController::class, 'destroy']);
+Route::middleware('auth')->group(function () {
+    Route::prefix('api')->group(function () {
+        Route::prefix('admin/solutions')->group(function () {
+            Route::get('/', [App\Http\Controllers\SolutionController::class, 'index']);
+            Route::post('/', [App\Http\Controllers\SolutionController::class, 'store']);
+            Route::get('/{id}', [App\Http\Controllers\SolutionController::class, 'show']);
+            Route::put('/{id}', [App\Http\Controllers\SolutionController::class, 'update']);
+            Route::delete('/{id}', [App\Http\Controllers\SolutionController::class, 'destroy']);
 
-        // product assignment
-        Route::get('/products/available', [App\Http\Controllers\SolutionController::class, 'getAvailableProducts']);
-        Route::post('/{id}/products/assign', [App\Http\Controllers\SolutionController::class, 'assignProducts']);
-        Route::post('/{id}/products/remove', [App\Http\Controllers\SolutionController::class, 'removeProducts']);
+            // product assignment
+            Route::get('/products/available', [App\Http\Controllers\SolutionController::class, 'getAvailableProducts']);
+            Route::post('/{id}/products/assign', [App\Http\Controllers\SolutionController::class, 'assignProducts']);
+            Route::post('/{id}/products/remove', [App\Http\Controllers\SolutionController::class, 'removeProducts']);
+        });
     });
 });
 

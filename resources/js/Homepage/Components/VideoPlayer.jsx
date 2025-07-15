@@ -1,6 +1,3 @@
-
-
-
 import React from 'react'
 import ReactPlayer from 'react-player';
 
@@ -10,6 +7,8 @@ function VideoPlayer({ url }) {
             <ReactPlayer
                 className='react-player'
                 controls
+                playing
+                muted
                 url={url}
                 width='100%'
                 height='100%'

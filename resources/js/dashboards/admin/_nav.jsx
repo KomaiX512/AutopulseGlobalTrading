@@ -19,7 +19,8 @@ import {
   GrCircleQuestion,
   GrBlog,
   GrServices,
-  GrCar
+  GrCar,
+  GrAttachment
 } from "react-icons/gr";
 
 import { CNavGroup, CNavItem, CNavTitle, } from '@coreui/react';
@@ -91,6 +92,27 @@ const _nav = [
         icon: <GrServices size={20} color='white' />,
       },
 
+    ],
+  },
+
+  {
+    component: CNavGroup,
+    name: 'Attachments & Accessories',
+    to: '/home',
+    icon: <GrAttachment size={20} color='white' />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'All Attachments',
+        to: '/attachments/list',
+        icon: <GrList size={20} color='white' />,
+      },
+      {
+        component: CNavItem,
+        name: 'Add Attachment',
+        to: '/attachments/add',
+        icon: <GrDeliver size={20} color='white' />,
+      },
     ],
   },
 

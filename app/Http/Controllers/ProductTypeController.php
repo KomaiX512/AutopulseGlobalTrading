@@ -11,14 +11,28 @@ class ProductTypeController extends Controller
     public function getBrandsAndCats(Request $request, $prod_type_slug)
     {
         try {
+            // Map URL slugs to product type names
+            $slugToNameMap = [
+                'machine' => 'Machine',
+                'electric-bikes' => 'Electric Bikes',
+                'vehicles' => 'Vehicles',
+                'machine-parts' => 'Machine Part',
+                'vehicle-parts' => 'Vehicle Part',
+                'bike-parts' => 'Bike Part',
+                'attachments' => 'Attachments & Accessories',
+                'attachments-accessories' => 'Attachments & Accessories'
+            ];
 
-            $productType = ProductType::where('slug', $prod_type_slug)->first();
+            $productTypeName = $slugToNameMap[$prod_type_slug] ?? $prod_type_slug;
+            
+            $productType = ProductType::where('name', $productTypeName)->first();
 
             if (!$productType) {
                 return response()->json(['error' => 'Product type not found'], 404);
             }
 
-            $categories = $productType->categories;
+            // Get categories for this product type that are viewable
+            $categories = $productType->categories()->where('is_viewable', 1)->get();
 
             if ($categories) {
 
@@ -28,7 +42,8 @@ class ProductTypeController extends Controller
                         ->whereIn('products.category_id', function ($query) use ($productType) {
                             $query->select('id')
                                 ->from('categories')
-                                ->where('product_type_id', $productType->id);
+                                ->where('product_type_id', $productType->id)
+                                ->where('is_viewable', 1);
                         })
                         ->distinct();
                 })->get();
@@ -50,8 +65,21 @@ class ProductTypeController extends Controller
     public function getCategories($slug)
     {
         try {
+            // Map URL slugs to product type names
+            $slugToNameMap = [
+                'machine' => 'Machine',
+                'electric-bikes' => 'Electric Bikes',
+                'vehicles' => 'Vehicles',
+                'machine-parts' => 'Machine Part',
+                'vehicle-parts' => 'Vehicle Part',
+                'bike-parts' => 'Bike Part',
+                'attachments' => 'Attachments & Accessories',
+                'attachments-accessories' => 'Attachments & Accessories'
+            ];
 
-            $productType = ProductType::where('slug', $slug)->first();
+            $productTypeName = $slugToNameMap[$slug] ?? $slug;
+            
+            $productType = ProductType::where('name', $productTypeName)->first();
             $categories = $productType->categories;
 
 
@@ -68,9 +96,9 @@ class ProductTypeController extends Controller
     {
         try {
             $productTypes = ProductType::all();
-            return response()->json($productTypes, 200);
+            return response()->json(['success' => true, 'productTypes' => $productTypes], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
         }
     }
 

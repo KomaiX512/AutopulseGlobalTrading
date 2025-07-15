@@ -62,14 +62,14 @@ const getShipmentIcon = (type) => {
     switch (type) {
         case 'ship':
         case 'container':
-            return <FaShip className="text-yellow-600" />;
+            return <FaShip className="text-gray-600" />;
         case 'truck':
         case 'delivery':
             return <FaTruck className="text-green-500" />;
         case 'plane':
             return <FaPlane className="text-orange-500" />;
         default:
-            return <FaShip className="text-yellow-600" />;
+            return <FaShip className="text-gray-600" />;
     }
 };
 
@@ -108,7 +108,7 @@ function ShipmentsShowcase() {
     };
 
     return (
-        <section className="py-20 bg-gradient-to-br from-yellow-50 to-yellow-100">
+        <section className="py-20 bg-gray-50">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl font-bold text-gray-800 mb-4">
@@ -162,7 +162,7 @@ function ShipmentsShowcase() {
                                                 }}
                                             >
                                                 {/* Fallback gradient */}
-                                                <div className="absolute inset-0 bg-gradient-to-br from-yellow-500 to-yellow-600 opacity-80"></div>
+                                                <div className="absolute inset-0 bg-gradient-to-br from-gray-500 to-gray-600 opacity-80"></div>
                                             </div>
                                             
                                             {/* Date Badge */}
@@ -205,7 +205,7 @@ function ShipmentsShowcase() {
                                 onClick={() => goToSlide(index)}
                                 className={`w-3 h-3 rounded-full transition-all duration-300 ${
                                     index === currentSlide 
-                                        ? 'bg-yellow-600 scale-125' 
+                                        ? 'bg-gray-600 scale-125' 
                                         : 'bg-gray-300 hover:bg-gray-400'
                                 }`}
                             />
@@ -217,7 +217,7 @@ function ShipmentsShowcase() {
                 <div className="mt-16 bg-white shadow-lg p-8">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
                         <div>
-                            <div className="text-3xl font-bold text-yellow-600 mb-2">200+</div>
+                            <div className="text-3xl font-bold text-gray-600 mb-2">200+</div>
                             <div className="text-gray-600">Shipments This Year</div>
                         </div>
                         <div>

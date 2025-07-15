@@ -21,7 +21,7 @@ const beforeUpload = (file) => {
   return isJpgOrPng && isLt50M;
 };
 
-const UploadImage = ({ defaultValue, setSelectedFile }) => {
+const UploadImage = ({ defaultValue, setSelectedFile, onClear }) => {
   const [imageUrl, setImageUrl] = useState(defaultValue);
 
   useEffect(() => {
@@ -34,6 +34,14 @@ const UploadImage = ({ defaultValue, setSelectedFile }) => {
         setImageUrl(url);
         setSelectedFile(info.file);
       });
+    }
+  };
+
+  const handleClear = () => {
+    setImageUrl('');
+    setSelectedFile(null);
+    if (onClear) {
+      onClear();
     }
   };
 
@@ -58,27 +66,54 @@ const UploadImage = ({ defaultValue, setSelectedFile }) => {
 
   return (
     <Flex gap="middle" wrap>
-      <Upload
-        name="avatar"
-        listType="picture-card"
-        className="avatar-uploader"
-        showUploadList={false}
-        beforeUpload={beforeUpload}
-        onChange={handleChange}
-        customRequest={() => Promise.resolve()}
-      >
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="avatar"
+      <div style={{ position: 'relative' }}>
+        <Upload
+          name="avatar"
+          listType="picture-card"
+          className="avatar-uploader"
+          showUploadList={false}
+          beforeUpload={beforeUpload}
+          onChange={handleChange}
+          customRequest={() => Promise.resolve()}
+        >
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              alt="avatar"
+              style={{
+                width: '100%',
+              }}
+            />
+          ) : (
+            uploadButton
+          )}
+        </Upload>
+        {imageUrl && (
+          <button
+            type="button"
+            onClick={handleClear}
             style={{
-              width: '100%',
+              position: 'absolute',
+              top: '-8px',
+              right: '-8px',
+              background: '#ff4d4f',
+              color: 'white',
+              border: 'none',
+              borderRadius: '50%',
+              width: '20px',
+              height: '20px',
+              fontSize: '12px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}
-          />
-        ) : (
-          uploadButton
+            title="Remove image"
+          >
+            ×
+          </button>
         )}
-      </Upload>
+      </div>
     </Flex>
   );
 };

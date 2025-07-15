@@ -13,290 +13,282 @@ import {
   Col,
   Spin,
   Space,
-  Alert
+  Alert,
+  Typography,
+  Steps,
+  message,
+  Descriptions,
+  Tag
 } from 'antd';
-import { FaUpload, FaSave, FaArrowLeft } from 'react-icons/fa';
+import { 
+  FaUpload, 
+  FaSave, 
+  FaArrowLeft, 
+  FaEye, 
+  FaEyeSlash,
+  FaIndustry,
+  FaInfoCircle,
+  FaCheckCircle,
+  FaExclamationTriangle
+} from 'react-icons/fa';
 
 const { TextArea } = Input;
+const { Title, Text } = Typography;
+const { Step } = Steps;
 
 const SolutionForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { state, methods } = useContext(SolutionsContext);
   const [form] = Form.useForm();
+  const { state, methods } = useContext(SolutionsContext);
   const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState('');
+  const [error, setError] = useState(null);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const isEditing = Boolean(id);
-
-  // Load solution data if editing
   useEffect(() => {
-    if (isEditing) {
-      loadSolutionData();
-    } else {
-      methods.clearCurrentSolution();
-      form.resetFields();
+    if (id) {
+      loadSolution();
     }
   }, [id]);
 
-  // Load solution data for editing
-  const loadSolutionData = async () => {
+  const loadSolution = async () => {
     try {
       setLoading(true);
       const solution = await methods.loadSolution(id);
-      
-      // Populate form with solution data
       form.setFieldsValue({
         name: solution.name,
         description: solution.description,
-        is_viewable: solution.is_viewable
+        is_active: solution.is_active,
       });
-      
-      setImageUrl(solution.image || '');
-    } catch (error) {
-      console.error('Error loading solution:', error);
+    } catch (err) {
+      message.error('Failed to load solution. Please try again.');
+      console.error('Error loading solution:', err);
     } finally {
       setLoading(false);
     }
   };
 
-  // Handle form submission
   const handleSubmit = async (values) => {
-    try {
-      setLoading(true);
-      
-      const solutionData = {
-        ...values,
-        image: imageUrl
-      };
-
-      if (isEditing) {
-        await methods.updateSolution(id, solutionData);
-      } else {
-        await methods.createSolution(solutionData);
-      }
-      
-      navigate('/solutions/list');
-    } catch (error) {
-      console.error('Error saving solution:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Handle image upload
-  const handleImageUpload = async (file) => {
-    const formData = new FormData();
-    formData.append('image', file);
+    if (isSubmitting) return; // Prevent multiple submissions
     
     try {
-      // You would implement actual image upload here
-      // For now, we'll use a placeholder
-      const fakeImageUrl = `/images/solutions/${file.name}`;
-      setImageUrl(fakeImageUrl);
-      return false; // Prevent default upload
-    } catch (error) {
-      console.error('Error uploading image:', error);
-      return false;
+      setIsSubmitting(true);
+      setLoading(true);
+      setError(null);
+
+      // Get current form values - this should get ALL form values regardless of current step
+      const formValues = form.getFieldsValue(true); // true means include undefined fields
+      
+      // Validate required fields
+      if (!formValues.name || !formValues.name.trim()) {
+        throw new Error('Solution name is required');
+      }
+      if (!formValues.description || !formValues.description.trim()) {
+        throw new Error('Solution description is required');
+      }
+
+      const formData = new FormData();
+      formData.append('name', formValues.name.trim());
+      formData.append('description', formValues.description.trim());
+      formData.append('is_active', formValues.is_active ? '1' : '0');
+
+      // Handle image upload - only append if there's actually a file
+      if (formValues.image && formValues.image.length > 0) {
+        const imageFile = formValues.image[0];
+        
+        if (imageFile.originFileObj) {
+          formData.append('image', imageFile.originFileObj);
+        }
+      }
+
+      let response;
+      if (id) {
+        formData.append('_method', 'PUT');
+        response = await methods.updateSolution(id, formData);
+      } else {
+        response = await methods.createSolution(formData);
+      }
+
+      message.success(`Solution ${id ? 'updated' : 'created'} successfully!`);
+      navigate('/dashboard/solutions');
+    } catch (err) {
+      console.error('Error saving solution:', err);
+      
+      if (err.response?.status === 422) {
+        const validationErrors = err.response.data.errors;
+        const errorMessage = Object.values(validationErrors).flat().join('\n');
+        setError(errorMessage || 'Validation failed. Please check your input.');
+        message.error(errorMessage || 'Validation failed. Please check your input.');
+      } else if (err.message?.includes('CSRF') || err.response?.status === 419) {
+        message.error('Session expired. Please refresh the page and try again.');
+        window.location.reload();
+      } else {
+        setError(err.message || 'Failed to save solution. Please try again.');
+        message.error(err.message || 'Failed to save solution. Please try again.');
+      }
+    } finally {
+      setLoading(false);
+      setIsSubmitting(false);
     }
   };
 
-  const uploadProps = {
-    name: 'image',
-    listType: 'picture-card',
-    className: 'solution-uploader',
-    showUploadList: false,
-    beforeUpload: handleImageUpload,
-    accept: 'image/*',
+  const handleNext = async () => {
+    try {
+      // Validate current step fields before proceeding
+      if (currentStep === 0) {
+        await form.validateFields(['name', 'description']);
+      }
+      setCurrentStep(current => current + 1);
+    } catch (err) {
+      message.error('Please fill in all required fields before proceeding');
+    }
   };
 
-  if (loading && isEditing) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <Spin size="large" />
-      </div>
-    );
-  }
+  const steps = [
+    {
+      title: 'Basic Info',
+      content: (
+        <Card title="Basic Information" className="mb-4">
+          <Form.Item
+            name="name"
+            label="Solution Name"
+            rules={[
+              { required: true, message: 'Please enter the solution name' },
+              { whitespace: true, message: 'Name cannot be empty' }
+            ]}
+          >
+            <Input placeholder="Enter solution name" />
+          </Form.Item>
+          <Form.Item
+            name="description"
+            label="Description"
+            rules={[
+              { required: true, message: 'Please enter the description' },
+              { whitespace: true, message: 'Description cannot be empty' }
+            ]}
+          >
+            <TextArea rows={4} placeholder="Enter solution description" />
+          </Form.Item>
+        </Card>
+      ),
+    },
+    {
+      title: 'Media',
+      content: (
+        <Card title="Media" className="mb-4">
+          <Form.Item
+            name="image"
+            label="Solution Image"
+            valuePropName="fileList"
+            getValueFromEvent={e => Array.isArray(e) ? e : e?.fileList}
+          >
+            <Upload
+              accept="image/*"
+              listType="picture-card"
+              maxCount={1}
+              beforeUpload={() => false}
+            >
+              <div>
+                <FaUpload />
+                <div style={{ marginTop: 8 }}>Upload</div>
+              </div>
+            </Upload>
+          </Form.Item>
+        </Card>
+      ),
+    },
+    {
+      title: 'Settings',
+      content: (
+        <Card title="Settings" className="mb-4">
+          <Form.Item
+            name="is_active"
+            label="Active Status"
+            valuePropName="checked"
+            initialValue={true}
+          >
+            <Switch />
+          </Form.Item>
+        </Card>
+      ),
+    },
+  ];
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      {/* Header */}
-      <div className="mb-6">
-        <Space className="mb-4">
-          <Button 
-            icon={<FaArrowLeft />} 
-            onClick={() => navigate('/solutions/list')}
-          >
-            Back to Solutions
-          </Button>
-        </Space>
-        <h1 className="text-2xl font-bold text-gray-800">
-          {isEditing ? 'Edit Solution' : 'Create New Solution'}
-        </h1>
-        <p className="text-gray-600">
-          {isEditing 
-            ? 'Update solution information and manage associated products' 
-            : 'Create a new solution category for heavy machinery'
-          }
-        </p>
-      </div>
-
-      {/* Form */}
+    <div className="p-6">
       <Card>
+        <div className="mb-4 flex justify-between items-center">
+          <Space>
+            <Button 
+              icon={<FaArrowLeft />} 
+              onClick={() => navigate('/dashboard/solutions')}
+            >
+              Back
+            </Button>
+            <Title level={4} style={{ margin: 0 }}>
+              {id ? 'Edit Solution' : 'Create New Solution'}
+            </Title>
+          </Space>
+        </div>
+
+        {error && (
+          <Alert
+            message="Error"
+            description={error}
+            type="error"
+            showIcon
+            className="mb-4"
+          />
+        )}
+
+        <Steps current={currentStep} className="mb-8">
+          {steps.map(item => (
+            <Step key={item.title} title={item.title} />
+          ))}
+        </Steps>
+
         <Form
           form={form}
           layout="vertical"
           onFinish={handleSubmit}
           initialValues={{
-            is_viewable: true
+            is_active: true,
           }}
+          validateTrigger={['onBlur', 'onChange']}
+          preserve={true} // Preserve form values when fields are unmounted
         >
-          <Row gutter={24}>
-            <Col md={16} xs={24}>
-              {/* Basic Information */}
-              <h3 className="text-lg font-semibold mb-4">Basic Information</h3>
-              
-              <Form.Item
-                label="Solution Name"
-                name="name"
-                rules={[
-                  { required: true, message: 'Please enter solution name' },
-                  { min: 3, message: 'Name must be at least 3 characters' },
-                  { max: 255, message: 'Name must not exceed 255 characters' }
-                ]}
-              >
-                <Input 
-                  placeholder="e.g., Material Handling Machines"
-                  size="large"
-                />
-              </Form.Item>
+          <div className="steps-content">
+            {steps[currentStep].content}
+          </div>
 
-              <Form.Item
-                label="Description"
-                name="description"
-                rules={[
-                  { required: true, message: 'Please enter solution description' },
-                  { min: 10, message: 'Description must be at least 10 characters' }
-                ]}
-              >
-                <TextArea
-                  placeholder="Describe the types of machines and use cases for this solution..."
-                  rows={4}
-                  size="large"
-                />
-              </Form.Item>
-
-              <Form.Item
-                label="Visibility"
-                name="is_viewable"
-                valuePropName="checked"
-                extra="When enabled, this solution will be visible on the website"
-              >
-                <Switch 
-                  checkedChildren="Visible" 
-                  unCheckedChildren="Hidden"
-                />
-              </Form.Item>
-            </Col>
-
-            <Col md={8} xs={24}>
-              {/* Image Upload */}
-              <h3 className="text-lg font-semibold mb-4">Solution Image</h3>
-              
-              <div className="text-center">
-                <Upload {...uploadProps}>
-                  {imageUrl ? (
-                    <img 
-                      src={imageUrl.replace('public', '/storage')} 
-                      alt="Solution" 
-                      className="w-full h-48 object-cover rounded-lg"
-                    />
-                  ) : (
-                    <div className="w-full h-48 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center text-gray-500 hover:border-blue-400 transition-colors">
-                      <FaUpload size={32} className="mb-2" />
-                      <p>Click to upload image</p>
-                      <p className="text-sm">JPG, PNG up to 2MB</p>
-                    </div>
-                  )}
-                </Upload>
-                
-                {imageUrl && (
-                  <Button 
-                    type="link" 
-                    danger 
-                    onClick={() => setImageUrl('')}
-                    className="mt-2"
-                  >
-                    Remove Image
-                  </Button>
-                )}
-              </div>
-            </Col>
-          </Row>
-
-          <Divider />
-
-          {/* Info Box */}
-          <Alert
-            message="Solution Management Tips"
-            description={
-              <ul className="list-disc list-inside space-y-1 mt-2">
-                <li>Choose a clear, descriptive name that reflects the solution's purpose</li>
-                <li>Write a detailed description explaining what types of projects this solution serves</li>
-                <li>Upload a relevant image that represents the solution category</li>
-                <li>After creating the solution, you can assign specific machines to it</li>
-              </ul>
-            }
-            type="info"
-            showIcon
-            className="mb-6"
-          />
-
-          {/* Form Actions */}
-          <div className="flex justify-end space-x-4">
-            <Button 
-              size="large"
-              onClick={() => navigate('/solutions/list')}
-            >
-              Cancel
-            </Button>
-            <Button 
-              type="primary" 
-              htmlType="submit" 
-              loading={loading}
-              icon={<FaSave />}
-              size="large"
-            >
-              {isEditing ? 'Update Solution' : 'Create Solution'}
-            </Button>
+          <div className="steps-action mt-4 flex justify-between">
+            {currentStep > 0 && (
+              <Button onClick={() => setCurrentStep(current => current - 1)}>
+                Previous
+              </Button>
+            )}
+            <div>
+              {currentStep < steps.length - 1 && (
+                <Button type="primary" onClick={handleNext}>
+                  Next
+                </Button>
+              )}
+              {currentStep === steps.length - 1 && (
+                <Button 
+                  type="primary"
+                  htmlType="submit"
+                  loading={loading}
+                  disabled={isSubmitting}
+                  icon={<FaSave />}
+                >
+                  {id ? 'Update' : 'Create'} Solution
+                </Button>
+              )}
+            </div>
           </div>
         </Form>
       </Card>
-
-      {/* Product Management Section for Existing Solutions */}
-      {isEditing && state.currentSolution && (
-        <Card className="mt-6">
-          <h3 className="text-lg font-semibold mb-4">Product Management</h3>
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <div className="flex justify-between items-center">
-              <div>
-                <p className="text-sm text-gray-600">
-                  This solution currently has <strong>{state.currentSolution.products?.length || 0}</strong> assigned products
-                </p>
-                <p className="text-xs text-gray-500 mt-1">
-                  Use the product management page to add or remove machines from this solution
-                </p>
-              </div>
-              <Button 
-                type="primary"
-                onClick={() => navigate(`/solutions/products/${id}`)}
-              >
-                Manage Products
-              </Button>
-            </div>
-          </div>
-        </Card>
-      )}
     </div>
   );
 };

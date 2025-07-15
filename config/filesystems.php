@@ -44,6 +44,24 @@ return [
             'throw' => false,
         ],
 
+        // Backup storage for images
+        'backup' => [
+            'driver' => 'local',
+            'root' => storage_path('app/backups'),
+            'url' => env('APP_URL').'/storage/backups',
+            'visibility' => 'private',
+            'throw' => false,
+        ],
+
+        // Secondary backup storage
+        'backup_secondary' => [
+            'driver' => 'local',
+            'root' => storage_path('app/backups_secondary'),
+            'url' => env('APP_URL').'/storage/backups_secondary',
+            'visibility' => 'private',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -53,6 +71,29 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
+            'throw' => false,
+        ],
+
+        // S3 backup bucket
+        's3_backup' => [
+            'driver' => 's3',
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION'),
+            'bucket' => env('AWS_BACKUP_BUCKET', env('AWS_BUCKET').'-backup'),
+            'url' => env('AWS_BACKUP_URL'),
+            'endpoint' => env('AWS_ENDPOINT'),
+            'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
+            'throw' => false,
+        ],
+
+        // Google Cloud Storage for backup
+        'gcs_backup' => [
+            'driver' => 'gcs',
+            'project_id' => env('GOOGLE_CLOUD_PROJECT_ID'),
+            'key_file' => env('GOOGLE_CLOUD_KEY_FILE'),
+            'bucket' => env('GOOGLE_CLOUD_BACKUP_BUCKET'),
+            'url' => env('GOOGLE_CLOUD_BACKUP_URL'),
             'throw' => false,
         ],
 
@@ -71,6 +112,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('backups') => storage_path('app/backups'),
     ],
 
 ];

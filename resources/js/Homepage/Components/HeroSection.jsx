@@ -35,9 +35,10 @@ function HeroSection() {
                     <div
                         key={index}
                         className={`absolute inset-0 transition-opacity duration-1000 ${
-                            index === currentSlide ? 'opacity-40' : 'opacity-0'
+                            index === currentSlide ? 'opacity-100' : 'opacity-0'
                         }`}
                     >
+                        {/* Background media */}
                         {slide.type === 'video' ? (
                             <video
                                 autoPlay
@@ -49,10 +50,13 @@ function HeroSection() {
                         ) : (
                             <img
                                 src={slide.url}
-                                alt={slide.title}
+                                alt={slide.title || 'Slide Image'}
                                 className="w-full h-full object-cover"
                             />
                         )}
+
+                        {/* Per-slide dark overlay for better text contrast */}
+                        <div className="absolute inset-0 bg-black/50" />
                     </div>
                 ))}
             </div>
@@ -61,14 +65,18 @@ function HeroSection() {
             <div className="relative z-10 min-h-screen flex items-center">
                 <div className="container mx-auto px-4">
                     <div className="max-w-4xl mx-auto text-center text-white">
-                        <h1 className="heading-primary text-white text-shadow-lg mb-6">
-                            Global Machinery Solutions
-                            <span className="block text-accent">from China</span>
-                        </h1>
-                        
-                        <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-2xl mx-auto text-shadow">
-                            Premium heavy machinery and construction equipment exported worldwide with unmatched quality and reliability.
-                        </p>
+                        {slides.length > 0 && (
+                            <div className={`transition-opacity duration-1000 ${slides[currentSlide] ? 'opacity-100' : 'opacity-0'}`}>
+                                <h1 className="heading-primary text-white text-shadow-lg mb-6">
+                                    {slides[currentSlide]?.title || "Global Machinery Solutions"}
+                                    <span className="block text-accent">{slides[currentSlide]?.subtitle || "from China"}</span>
+                                </h1>
+                                
+                                <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-2xl mx-auto text-shadow">
+                                    {slides[currentSlide]?.description || "Premium heavy machinery and construction equipment exported worldwide with unmatched quality and reliability."}
+                                </p>
+                            </div>
+                        )}
 
                         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                             <button 

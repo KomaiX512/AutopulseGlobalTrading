@@ -20,6 +20,7 @@ function CategoriesForm() {
   const [description, setDescription] = useState('');
   const [isViewable, setIsViewable] = useState(false);
   const [selectedProd, setSelectedProd] = useState(null);
+  const [productTypes, setProductTypes] = useState([]);
 
 
   const navigate = useNavigate();
@@ -31,7 +32,41 @@ function CategoriesForm() {
     } else {
       dispatch({ payload: { loading: false } })
     }
+    loadProductTypes();
   }, [id]);
+
+  const loadProductTypes = async () => {
+    try {
+      const response = await fetch('/api/get/product-types');
+      const data = await response.json();
+      if (data.success) {
+        setProductTypes(data.productTypes || []);
+      } else {
+        // Fallback to hardcoded list if API fails
+        setProductTypes([
+          { id: 1, name: 'Machine' },
+          { id: 2, name: 'Electric Bikes' },
+          { id: 3, name: 'Electric Vehicles' },
+          { id: 4, name: 'Heavy Machinery' },
+          { id: 5, name: 'Vehicle Part' },
+          { id: 6, name: 'Bike Part' },
+          { id: 7, name: 'Attachments & Accessories' }
+        ]);
+      }
+    } catch (error) {
+      console.error('Error loading product types:', error);
+      // Fallback to hardcoded list
+      setProductTypes([
+        { id: 1, name: 'Machine' },
+        { id: 2, name: 'Electric Bikes' },
+        { id: 3, name: 'Electric Vehicles' },
+        { id: 4, name: 'Heavy Machinery' },
+        { id: 5, name: 'Vehicle Part' },
+        { id: 6, name: 'Bike Part' },
+        { id: 7, name: 'Attachments & Accessories' }
+      ]);
+    }
+  };
 
   useEffect(() => {
 
@@ -51,57 +86,55 @@ function CategoriesForm() {
   }
 
 
-  function submitForm(e) {
+  async function submitForm(e) {
 
     e.preventDefault();
+    
+    // Prevent double submission
+    if (state?.loading) {
+      return;
+    }
+    
+    // Validate required fields
+    if (!name.trim()) {
+      alert('Please enter a category name');
+      return;
+    }
+    
+    if (!selectedProd) {
+      alert('Please select a product type');
+      return;
+    }
+    
+    if (!selectedImage && !id) {
+      alert('Please select a category image');
+      return;
+    }
+    
     let formValues = new FormData(e.target);
+    
+    // Add controlled component values that aren't automatically captured
+    formValues.append('description', description || '');
+    formValues.append('product_type_id', selectedProd);
+    formValues.append('is_viewable', isViewable ? '1' : '0');
+    
     if (selectedImage) {
-
       formValues.append('image', selectedImage.originFileObj);
-
     }
 
-    let res = methods.saveCategory(formValues, id);
+    try {
+      const res = await methods.saveCategory(formValues, id);
     if (res) {
-
       navigate('/categories/list');
     }
-
-    e.target.reset();
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   }
 
-  const product_types = [
-    {
-      id: 1,
-      title: 'Machine'
-    },
-    {
-      id: 2,
-      title: 'Electric Bikes'
-    },
-    {
-      id: 3,
-      title: 'Vehicles'
-    },
-    {
-      id: 4,
-      title: 'Machine Part'
-    },
-    {
-      id: 5,
-      title: 'Vehicle Part'
-    },
-    {
-      id: 6,
-      title: 'Bike Part'
-    },
-
-  ]
-
-
-  const productsOptions = product_types?.map((prod) => ({
+  const productsOptions = productTypes?.map((prod) => ({
     value: prod.id,
-    label: prod.title,
+    label: prod.name,
   }));
 
   return (
@@ -155,6 +188,7 @@ function CategoriesForm() {
               options={productsOptions}
               onChange={(e) => setSelectedProd(e.target.value)}
               className="select-area"
+              required
             />
           </label>
         </Flex>

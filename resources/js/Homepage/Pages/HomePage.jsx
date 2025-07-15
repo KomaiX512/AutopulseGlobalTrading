@@ -1,5 +1,6 @@
 import React from 'react'
-import HeroSection from '../Components/HeroSection'
+import HeroBanner from '../Components/HeroBanner'
+import Introduction from '../Components/Introduction'
 import MachinesByBodyType from '../Components/MachinesByBodyType'
 import MachinesByBrand from '../Components/MachinesByBrand'
 import SolutionsByProject from '../Components/SolutionsByProject'
@@ -17,10 +18,13 @@ import WhatsAppButton from '../Components/WhatsAppButton'
 function HomePage() {
 
     return (
-        <div className="p-0 relative">
-            {/* A. Hero Section - Enhanced video/photo slider with CTA buttons */}
-            <HeroSection />
-            
+        <div className="p-0 relative page-home">
+            {/* Hero Section (dynamic) */}
+            <HeroBanner />
+
+            {/* Introduction Section */}
+            <Introduction />
+
             {/* === HEAVY MACHINERY SECTIONS === */}
             {/* B. Heavy Machinery by Category - Grid of machine categories */}
             <MachinesByBodyType />

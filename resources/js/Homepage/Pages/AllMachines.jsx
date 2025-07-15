@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useState } from 'react';
 import { Input, Checkbox, Pagination, Card, Typography, Flex, Radio, Empty } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -160,21 +159,28 @@ function AllMachines() {
                                                     xl={6}
                                                     xxl={4}
                                                 >
-                                                    <div className=" product-card" style={{ height: '100%' }} data-aos="zoom-in" data-aos-delay="100">
-                                                        <div className="product-item" >
-                                                            <Image
-                                                                loading='lazy'
-                                                                src={`${prod?.image.replace('public', '/storage')}`}
-                                                            />
+                                                    <div className="product-card group" style={{ height: '100%' }} data-aos="zoom-in" data-aos-delay="100">
+                                                        <div className="product-item relative w-full flex flex-col gap-1 bg-white border border-gray-200 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden" >
+                                                            <div className="relative w-full overflow-hidden" style={{ height: '280px', flex: '0 0 280px' }}>
+                                                                <Image
+                                                                    loading='lazy'
+                                                                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                                                                    src={`${prod?.image.replace('public', '/storage')}`}
+                                                                    alt={prod?.name}
+                                                                />
+                                                                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+                                                            </div>
                                                             {prod?.is_business_product == 1 &&
                                                                 <Tag style={{ width: 'fit-content', position: 'absolute', top: "0px" }} color='purple'>
                                                                     Business
                                                                 </Tag>
 
                                                             }
-                                                            <div className="product-details">
+                                                            <div className="product-details p-4 flex-1 flex flex-col justify-between">
                                                                 <div className="down-content">
-                                                                    <a title='View Product Details' className='card-title-link' href={`/product/${prod.slug}`}><h4>{prod.name}</h4></a>
+                                                                    <a title='View Product Details' href={`/product/${prod.slug}`}> 
+                                                                        <h4 className='text-lg font-bold text-gray-800 text-center group-hover:text-gray-600 transition-colors duration-300'>{prod.name}</h4>
+                                                                    </a>
                                                                     <Flex className='py-2' align='center' gap={15}><small><del>${prod.stock_price}</del></small><strong>${prod.price}</strong></Flex>
                                                                 </div>
                                                                 {prod?.is_business_product == 0 ? <Flex align='center' wrap justify='space-between' className="card-footers py-2">
@@ -188,7 +194,7 @@ function AllMachines() {
                                                                             />
 
                                                                         </div>
-                                                                        <Tag color={prod.stock > 10 ? 'green' : 'orange'} className=' mt-2'>
+                                                                        <Tag color={prod.stock > 10 ? 'blue' : 'orange'} className=' mt-2'>
                                                                             Availability: {prod?.stock}
                                                                         </Tag>
                                                                     </>
@@ -202,7 +208,7 @@ function AllMachines() {
                                                                         <a href={`https://wa.me/13072950382?text=${encodeURIComponent('Check out this product: ' + location.origin + '/product/' + prod.slug)}`} className="card-footers py-2">
 
                                                                             <button
-                                                                                style={{ width: '100%', background: "#52ca52" }}
+                                                                                style={{ width: '100%', background: "#6B7280" }}
                                                                                 className='btn btn-primary btn-home-primary'
                                                                                 href=''
                                                                             >

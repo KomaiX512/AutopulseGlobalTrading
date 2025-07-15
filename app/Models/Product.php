@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\OptimizedImages;
 
 class Product extends Model
 {
@@ -27,8 +28,7 @@ class Product extends Model
         'weight'
     ];
     
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory, SoftDeletes, OptimizedImages;
 
     public function category()
     {

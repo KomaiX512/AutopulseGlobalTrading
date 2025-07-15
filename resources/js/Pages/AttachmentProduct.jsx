@@ -59,6 +59,32 @@ const AttachmentProductContent = ({ auth }) => {
         return <div className="error-container">Attachment not found</div>;
     }
 
+    // Normalize images for gallery and ensure main image is included
+    let galleryImages = attachment?.images?.map(img => ({
+        ...img,
+        path: img.path || img.image_path,
+    })) || [];
+
+    // Ensure main image is included in gallery if it exists and is not already present
+    if (attachment?.primary_image?.path) {
+        const mainImagePath = attachment.primary_image.path.replace('public', '/storage');
+        const mainImageAlreadyInGallery = galleryImages.some(img => {
+            const imgPath = (img.path || img.image_path)?.replace('public', '/storage');
+            return imgPath === mainImagePath;
+        });
+        
+        if (!mainImageAlreadyInGallery) {
+            galleryImages = [
+                { 
+                    path: attachment.primary_image.path, 
+                    alt: attachment.name || 'Main Image',
+                    isMainImage: true 
+                },
+                ...galleryImages
+            ];
+        }
+    }
+
     // Create custom specifications for attachments
     const getAttachmentSpecifications = (attachment) => {
         return [
@@ -126,7 +152,7 @@ const AttachmentProductContent = ({ auth }) => {
                     {/* Left Column - Images */}
                     <Col xs={24} lg={12}>
                         <ProductImageGallery 
-                            images={attachment?.images}
+                            images={galleryImages}
                             height="400px"
                             showThumbnails={true}
                             thumbnailCount={4}

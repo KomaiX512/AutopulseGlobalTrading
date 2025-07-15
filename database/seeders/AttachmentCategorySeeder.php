@@ -23,7 +23,7 @@ class AttachmentCategorySeeder extends Seeder
                 'slug' => 'hydraulic-attachments',
                 'is_viewable' => true,
                 'type' => 'customer',
-                'product_type_id' => 1
+                'product_type_id' => 7 // Attachments & Accessories
             ],
             [
                 'name' => 'Bucket Attachments',
@@ -32,7 +32,7 @@ class AttachmentCategorySeeder extends Seeder
                 'slug' => 'bucket-attachments',
                 'is_viewable' => true,
                 'type' => 'customer',
-                'product_type_id' => 1
+                'product_type_id' => 7 // Attachments & Accessories
             ],
             [
                 'name' => 'Drilling Attachments',
@@ -41,7 +41,7 @@ class AttachmentCategorySeeder extends Seeder
                 'slug' => 'drilling-attachments',
                 'is_viewable' => true,
                 'type' => 'customer',
-                'product_type_id' => 1
+                'product_type_id' => 7 // Attachments & Accessories
             ],
             [
                 'name' => 'Coupling Systems',
@@ -50,7 +50,7 @@ class AttachmentCategorySeeder extends Seeder
                 'slug' => 'coupling-systems',
                 'is_viewable' => true,
                 'type' => 'customer',
-                'product_type_id' => 1
+                'product_type_id' => 7 // Attachments & Accessories
             ],
             [
                 'name' => 'Demolition Attachments',
@@ -59,12 +59,15 @@ class AttachmentCategorySeeder extends Seeder
                 'slug' => 'demolition-attachments',
                 'is_viewable' => true,
                 'type' => 'customer',
-                'product_type_id' => 1
+                'product_type_id' => 7 // Attachments & Accessories
             ]
         ];
 
         foreach ($categories as $categoryData) {
-            $category = Category::create($categoryData);
+            $category = Category::updateOrCreate(
+                ['name' => $categoryData['name']],
+                $categoryData
+            );
         }
 
         // Update existing attachments to have categories and prices

@@ -105,7 +105,7 @@ function BusinessProd({ header = true }) {
                                         <a href={`https://wa.me/3126745947?text=${encodeURIComponent('Check out this product: ' + location.origin + '/product/' + prod.slug)}`} className="card-footers py-2 mb-3">
 
                                             <button
-                                                style={{ width: '100%', background: "#52ca52" }}
+                                                style={{ width: '100%', background: "#6B7280" }}
                                                 className='btn btn-primary btn-home-primary my-2'
                                                 href=''
                                             >

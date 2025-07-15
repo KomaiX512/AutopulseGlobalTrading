@@ -19,6 +19,7 @@ import SparePartsForm from '../views/spare_parts/SparePartsForm';
 import SolutionsIndex from '../views/solutions/SolutionsIndex';
 import { Solutions } from '../views/solutions/Solutions';
 import SolutionForm from '../views/solutions/SolutionForm';
+import SolutionProductsManager from '../views/solutions/SolutionProductsManager';
 
 const AppContent = () => {
   return (
@@ -72,6 +73,7 @@ const AppContent = () => {
           <Route path='/solutions' element={<SolutionsIndex />}>
             <Route path="list" element={<Solutions />} />
             <Route path="form/:id?" element={<SolutionForm />} />
+            <Route path="products/:id" element={<SolutionProductsManager />} />
           </Route>
           <Route path='/profile/update' element={<UpdateProfileInformation />} />
 

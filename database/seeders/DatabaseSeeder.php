@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Database\Seeders\HeroBannerSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -20,10 +21,13 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        // Seed attachments and their categories
+        // Seed product types first
         $this->call([
+            ProductTypeSeeder::class,
             AttachmentSeeder::class,
             AttachmentCategorySeeder::class,
+            HeroBannerSeeder::class,
+            ImportSqlSeeder::class,
         ]);
     }
 }

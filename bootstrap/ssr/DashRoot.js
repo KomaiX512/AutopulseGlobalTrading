@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useColorModes, CSpinner } from "@coreui/react";
 import { legacy_createStore } from "redux";
 import "react/jsx-runtime";
-const DefaultLayout = React.lazy(() => import("./assets/DefaultLayout-CQKz9vmn.js").then((n) => n.c));
+const DefaultLayout = React.lazy(() => import("./assets/DefaultLayout-CdjuhZAb.js").then((n) => n.c));
 const App = () => {
   const { isColorModeSet, setColorMode } = useColorModes("coreui-free-react-admin-template-theme");
   const storedTheme = useSelector((state) => state.theme);

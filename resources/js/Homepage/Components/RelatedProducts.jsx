@@ -74,20 +74,19 @@ function BusinessProd({ header = true }) {
 
     return (
 
-        <div className="latest-products container p-3 bg-white mt-3" style={{ padding: '30px 12px' }}>
+        <div className="latest-products container p-3 bg-white mt-3 no-horizontal-padding" style={{ padding: '30px 12px' }}>
             <div className="text-center mb-8 py-2 pb-4 flex align-center justify-between px-1">
                 <h2 className="text-secondary text-lg font-semibold">Related Products</h2>
                 <button className='btn btn-primary btn-home-primary'>View All</button>
             </div>
-            <div className="container mx-auto p-0" style={{ position: 'relative' }}>
+            <div className="container mx-auto p-0 no-horizontal-padding" style={{ position: 'relative', paddingLeft: 0, paddingRight: 0 }}>
                 <Flex align="center" style={{ position: 'absolute', right: '0', top: '-40px', }} justify="end" gap={10} className="flex  justify-between mb-2 mr-auto">
                     <Button onClick={() => sliderRef.current.slickPrev()} icon={<LeftOutlined />} />
                     <Button onClick={() => sliderRef.current.slickNext()} icon={<RightOutlined />} />
                 </Flex>
-                <div className=" pr-0" style={{ paddingRight: '0px !important' }}>
+                <div className="pr-0" style={{ paddingRight: '0px !important', width: '100%' }}>
                     <Slider ref={sliderRef} {...settings}>
                         {state?.relatedProducts?.map((prod, index) => (
-
                             <ProductComponent prod={prod} index={index} />
                         ))}
                     </Slider>

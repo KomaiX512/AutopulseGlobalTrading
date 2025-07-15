@@ -5,9 +5,9 @@
 /* Professional Heavy Machinery Theme */
 :root {
     /* Primary Colors - Professional Industrial Theme */
-    --primary-yellow: #F59E0B;
-    --primary-yellow-dark: #D97706;
-    --primary-yellow-light: #FCD34D;
+    --primary-yellow: #6B7280;
+    --primary-yellow-dark: #4B5563;
+    --primary-yellow-light: #9CA3AF;
     
     /* Secondary Colors */
     --secondary-gray: #374151;
@@ -25,8 +25,8 @@
     --neutral-dark: #111827;
     
     /* Status Colors */
-    --success-green: #10B981;
-    --warning-orange: #F59E0B;
+    --success-green: #6B7280;
+    --warning-orange: #6B7280;
     --error-red: #EF4444;
     
     /* Background */
@@ -242,7 +242,7 @@ body {
     bottom: 1.5rem;
     right: 1.5rem;
     z-index: 50;
-    background-color: #10b981;
+    background-color: #6B7280;
     color: white;
     border-radius: 50%;
     padding: 1rem;
@@ -253,20 +253,20 @@ body {
 }
 
 .whatsapp-btn:hover {
-    background-color: #059669;
+    background-color: #4B5563;
     transform: scale(1.1);
 }
 
 .whatsapp-btn:focus {
     outline: none;
-    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 0 0 4px rgba(107, 114, 128, 0.3);
 }
 
 .whatsapp-btn::before {
     content: '';
     position: absolute;
     inset: 0;
-    background-color: #10b981;
+    background-color: #6B7280;
     border-radius: 50%;
     animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
     opacity: 0.2;
@@ -291,7 +291,7 @@ body {
 .form-input-professional:focus {
     outline: none;
     border-color: var(--primary-yellow);
-    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+    box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.1);
 }
 
 /* Professional Utilities */
@@ -344,89 +344,1257 @@ body {
     color: var(--neutral-white) !important;
 }
 
-/* Responsive Design */
+/* Enhanced Mobile Responsive Design */
 @media (max-width: 768px) {
-    .btn-professional {
-        padding: 0.5rem 1rem;
-        font-size: 0.75rem;
-    }
-    
+    /* Typography Adjustments */
     .heading-primary {
         font-size: 2.25rem;
+        line-height: 1.2;
     }
     
     .heading-secondary {
         font-size: 1.875rem;
+        line-height: 1.3;
     }
     
+    .heading-tertiary {
+        font-size: 1.25rem;
+        line-height: 1.4;
+    }
+    
+    /* Button Adjustments */
+    .btn-professional {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
+    
+    /* Section Adjustments */
     .section-professional {
-        padding: 3rem 0;
+        padding: 2rem 0;
+    }
+    
+    .section-professional-alt {
+        padding: 2rem 0;
+    }
+    
+    /* Card Adjustments */
+    .card-professional {
+        margin-bottom: 1rem;
+        border-radius: 0.5rem;
+    }
+    
+    .card-professional-hover {
+        margin-bottom: 1rem;
+        border-radius: 0.5rem;
+    }
+    
+    /* Container Adjustments */
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    /* Grid Adjustments */
+    .grid {
+        gap: 1rem;
+    }
+    
+    /* Spacing Adjustments */
+    .space-y-8 > * + * {
+        margin-top: 1.5rem;
+    }
+    
+    .space-y-6 > * + * {
+        margin-top: 1rem;
+    }
+    
+    .space-y-4 > * + * {
+        margin-top: 0.75rem;
+    }
+    
+    /* Navigation Enhancements */
+    .nav-up {
+        min-height: 70px;
+        padding: 0.75rem 1rem !important;
+    }
+    
+    .nav-down {
+        padding: 0.75rem 1rem !important;
+        border-radius: 1rem !important;
+        margin: 0.5rem;
+    }
+    
+    /* Search Bar Enhancements */
+    .search-container {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    /* Product Grid Enhancements */
+    .product-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1rem;
+    }
+    
+    /* Product Card Mobile Optimizations */
+    .product-card {
+        margin: 0.5rem 0;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    
+    .product-item {
+        min-height: 350px !important;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .product-item .relative {
+        height: 200px !important;
+        flex-shrink: 0;
+    }
+    
+    .product-details {
+        padding: 1rem 0.75rem !important;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .product-details h4 {
+        font-size: 0.875rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 0.5rem !important;
+        height: auto !important;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .text-cats {
+        font-size: 0.75rem !important;
+        gap: 0.25rem !important;
+    }
+    
+    .text-cats > div {
+        margin-bottom: 0.25rem;
+    }
+    
+    /* Button Improvements for Mobile */
+    .btn-whatsapp,
+    .primary-btn {
+        padding: 0.75rem 1rem !important;
+        font-size: 0.875rem !important;
+        min-height: 44px;
+        border-radius: 8px;
+        white-space: nowrap;
+    }
+    
+    /* Image Enhancements */
+    .product-image {
+        height: 200px;
+        object-fit: cover;
+        border-radius: 0.5rem;
+    }
+    
+    /* Ant Design Column Responsive Fixes */
+    .ant-col {
+        padding: 0.25rem !important;
+    }
+    
+    /* Text Overflow Prevention */
+    .down-content {
+        overflow: hidden;
+    }
+    
+    .card-title-link {
+        display: block;
+        height: auto !important;
+    }
+    
+    /* Table Responsive */
+    .ant-table-wrapper {
+        overflow-x: auto;
+    }
+    
+    .ant-table {
+        min-width: 600px;
+    }
+    
+    /* Text Enhancements */
+    .text-base {
+        font-size: 0.875rem;
+        line-height: 1.5;
+    }
+    
+    .text-sm {
+        font-size: 0.75rem;
+        line-height: 1.4;
+    }
+    
+    /* Form Enhancements */
+    .form-input-professional {
+        padding: 0.625rem 0.875rem;
+        font-size: 0.875rem;
+    }
+    
+    /* WhatsApp Button Adjustments */
+    .whatsapp-btn {
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.75rem;
+    }
+    
+    /* Modal and Drawer Improvements */
+    .ant-modal {
+        margin: 1rem;
+        max-width: calc(100vw - 2rem);
+    }
+    
+    .ant-drawer-content-wrapper {
+        width: 300px !important;
+    }
+    
+    /* Carousel and Slider Improvements */
+    .slick-slider {
+        margin: 0 -0.5rem;
+    }
+    
+    .slick-slide {
+        padding: 0 0.5rem;
+    }
+    
+    .slick-slide > div {
+        margin: 0 !important;
+    }
+    
+    /* Grid Layout Fixes */
+    .latest-products .ant-col {
+        padding: 0.25rem !important;
+    }
+    
+    /* Brand and Category Grid Fixes */
+    .brands-container .ant-col,
+    .categories-container .ant-col {
+        margin-bottom: 1rem;
+    }
+    
+    .brands-container .product-item,
+    .categories-container .product-item {
+        min-height: 120px;
+        padding: 0.75rem;
+        text-align: center;
+    }
+    
+    .brands-container img,
+    .categories-container img {
+        height: 80px !important;
+        width: 100% !important;
+        object-fit: contain !important;
+    }
+    
+    /* Search and Filter Improvements */
+    .all-products-container {
+        padding: 0.5rem;
+    }
+    
+    .filter-item {
+        margin-bottom: 1rem;
+    }
+    
+    /* Footer Responsive */
+    .footer-professional {
+        text-align: center;
+        padding: 1rem;
+    }
+    
+    .footer-professional .footer-content {
+        flex-direction: column;
+        gap: 1rem;
     }
 }
 
-/* Professional Footer */
-.footer-professional {
-    background: linear-gradient(135deg, var(--secondary-gray-dark) 0%, var(--neutral-dark) 100%);
-    color: var(--neutral-white);
+@media (max-width: 480px) {
+    /* Typography Adjustments for Very Small Screens */
+    .heading-primary {
+        font-size: 1.875rem;
+        line-height: 1.3;
+    }
+    
+    .heading-secondary {
+        font-size: 1.5rem;
+        line-height: 1.4;
+    }
+    
+    .heading-tertiary {
+        font-size: 1.125rem;
+        line-height: 1.5;
+    }
+    
+    /* Button Adjustments */
+    .btn-professional {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.75rem;
+    }
+    
+    /* Section Adjustments */
+    .section-professional {
+        padding: 1.5rem 0;
+    }
+    
+    .section-professional-alt {
+        padding: 1.5rem 0;
+    }
+    
+    /* Container Adjustments */
+    .container {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+    
+    /* Navigation Enhancements */
+    .nav-up {
+        min-height: 60px;
+        padding: 0.5rem 0.75rem !important;
+    }
+    
+    .nav-down {
+        padding: 0.5rem 0.75rem !important;
+        border-radius: 0.75rem !important;
+        margin: 0.25rem;
+    }
+    
+    /* Product Grid Enhancements */
+    .product-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    /* Product Card Ultra-Mobile Optimizations */
+    .product-card {
+        margin: 0.25rem 0;
+    }
+    
+    .product-item {
+        min-height: 320px !important;
+    }
+    
+    .product-item .relative {
+        height: 180px !important;
+    }
+    
+    .product-details {
+        padding: 0.75rem 0.5rem !important;
+    }
+    
+    .product-details h4 {
+        font-size: 0.8125rem !important;
+    }
+    
+    .text-cats {
+        font-size: 0.6875rem !important;
+        flex-wrap: wrap;
+    }
+    
+    /* Button Ultra-Mobile */
+    .btn-whatsapp,
+    .primary-btn {
+        padding: 0.625rem 0.75rem !important;
+        font-size: 0.75rem !important;
+    }
+    
+    /* Image Enhancements */
+    .product-image {
+        height: 180px;
+    }
+    
+    /* Modal Ultra-Mobile */
+    .ant-modal {
+        margin: 0.5rem;
+        max-width: calc(100vw - 1rem);
+    }
+    
+    .ant-drawer-content-wrapper {
+        width: 280px !important;
+    }
+    
+    /* Carousel Ultra-Mobile */
+    .slick-slider {
+        margin: 0 -0.25rem;
+    }
+    
+    .slick-slide {
+        padding: 0 0.25rem;
+    }
+    
+    /* Grid Spacing Ultra-Mobile */
+    .ant-col {
+        padding: 0.125rem !important;
+    }
+    
+    /* Text Enhancements */
+    .text-base {
+        font-size: 0.8125rem;
+    }
+    
+    .text-sm {
+        font-size: 0.6875rem;
+    }
+    
+    /* Form Enhancements */
+    .form-input-professional {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8125rem;
+    }
+    
+    /* WhatsApp Button Adjustments */
+    .whatsapp-btn {
+        bottom: 0.75rem;
+        right: 0.75rem;
+        padding: 0.625rem;
+    }
+    
+    /* Spacing Adjustments */
+    .space-y-8 > * + * {
+        margin-top: 1rem;
+    }
+    
+    .space-y-6 > * + * {
+        margin-top: 0.75rem;
+    }
+    
+    .space-y-4 > * + * {
+        margin-top: 0.5rem;
+    }
+    
+    /* Ultra-small Brand/Category Cards */
+    .brands-container img,
+    .categories-container img {
+        height: 60px !important;
+    }
+    
+    .brands-container .product-item,
+    .categories-container .product-item {
+        min-height: 100px;
+        padding: 0.5rem;
+    }
+    
+    /* Search Container Mobile */
+    .product-search-container {
+        width: 100%;
+    }
+    
+    /* Table Ultra-Responsive */
+    .ant-table {
+        font-size: 0.75rem;
+        min-width: 500px;
+    }
+    
+    .ant-table-thead > tr > th,
+    .ant-table-tbody > tr > td {
+        padding: 8px 6px !important;
+    }
 }
 
-.footer-professional a {
-    color: var(--neutral-white);
-    @apply transition-colors duration-200;
+/* Additional Mobile Enhancements */
+@media (max-width: 768px) {
+    /* Improve table responsiveness */
+    table {
+        font-size: 0.875rem;
+    }
+    
+    /* Improve dropdown responsiveness */
+    .ant-dropdown-menu {
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+    
+    /* Improve button group responsiveness */
+    .btn-group {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    /* Improve navigation responsiveness */
+    .navbar-nav {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    /* Product Specification Tables */
+    .specifications-table {
+        font-size: 0.875rem;
+    }
+    
+    .specifications-table .ant-table-thead > tr > th,
+    .specifications-table .ant-table-tbody > tr > td {
+        padding: 8px 12px !important;
+    }
+    
+    /* Product Image Gallery Mobile */
+    .product-image-gallery .thumbnail-container {
+        margin-top: 0.5rem;
+    }
+    
+    .product-image-gallery .thumbnail-slide {
+        padding: 0 2px;
+    }
+    
+    /* Hero Section Mobile */
+    .hero-section {
+        height: 200px;
+    }
+    
+    .hero-section .hero-title {
+        font-size: 2rem !important;
+    }
+    
+    /* Category and Brand Grid Improvements */
+    .categories-container .row,
+    .brands-container .row {
+        gap: 0.5rem !important;
+    }
+    
+    /* Touch-Friendly Interactions */
+    .product-card:hover {
+        transform: none; /* Disable hover transforms on mobile */
+    }
+    
+    .product-item:hover {
+        transform: none;
+    }
+    
+    /* Carousel Navigation Buttons */
+    .slick-arrow {
+        width: 40px !important;
+        height: 40px !important;
+        z-index: 2;
+    }
+    
+    .slick-prev {
+        left: 10px !important;
+    }
+    
+    .slick-next {
+        right: 10px !important;
+    }
+    
+    /* Filter and Search Mobile */
+    .mobile-all-prod-filters {
+        display: block !important;
+    }
+    
+    .desktop-all-prod-filters {
+        display: none !important;
+    }
+    
+    /* Product Actions Mobile */
+    .card-footers {
+        padding: 0.75rem 0 !important;
+        gap: 0.5rem;
+    }
 }
 
-.footer-professional a:hover {
-    color: var(--primary-yellow-light);
+@media (max-width: 480px) {
+    /* Further improve table responsiveness */
+    table {
+        font-size: 0.75rem;
+    }
+    
+    /* Further improve button group responsiveness */
+    .btn-group {
+        gap: 0.25rem;
+    }
+    
+    /* Further improve navigation responsiveness */
+    .navbar-nav {
+        gap: 0.25rem;
+    }
+    
+    /* Ultra-small Product Actions */
+    .card-footers {
+        padding: 0.5rem 0 !important;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    /* Ultra-small Hero */
+    .hero-section {
+        height: 150px;
+    }
+    
+    .hero-section .hero-title {
+        font-size: 1.5rem !important;
+    }
+    
+    /* Ultra-small Carousel */
+    .slick-arrow {
+        width: 30px !important;
+        height: 30px !important;
+    }
 }
 
-html {
-    font-size: 16px !important;
+/* Custom styles for admin dashboard */
+.custom-table .ant-table-thead > tr > th {
+    background-color: #f8fafc;
+    border-bottom: 2px solid #e2e8f0;
+    font-weight: 600;
+    color: #374151;
 }
 
-.text-base {
-    font-size: 15px;
+.custom-table .ant-table-tbody > tr:hover > td {
+    background-color: #f1f5f9;
 }
 
-/* *{
-  font-size: 15px;
-}   */
-
-footer a {
-
-    color: white;
+.custom-table .ant-table-tbody > tr > td {
+    border-bottom: 1px solid #f1f5f9;
+    padding: 12px 16px;
 }
 
-footer a:hover {
-
-    outline: 1px solid rgb(255, 119, 119);
-    color: beige;
+/* Solution uploader styles */
+.solution-uploader .ant-upload-select {
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
-
-/* #categories-slider {
-    background-color: rgb(15, 23, 43);
+.solution-uploader .ant-upload-select:hover {
+    border-color: #3b82f6;
+    background-color: #f8fafc;
 }
 
-#categories-slider .slick-initialized .slick-active {
-    display: flex !important;
-    justify-content: center;
+/* Card hover effects */
+.ant-card {
+    transition: all 0.3s ease;
+    border: 1px solid #e5e7eb;
 }
 
-#categories-slider .slick-initialized .slick-active .title {
-    color: white;
+.ant-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
 }
 
-#categories-slider .slick-initialized .slick-dots {
-    color: black;
-    display: none !important;
-    justify-content: center;
-} */
-
-#home-cat-container {
-    /* background-color: darkgray; */
-
+/* Button improvements */
+.ant-btn {
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
-#home-cat-container button {
-    /* background-color: black; */
+.ant-btn-primary {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    border: none;
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+}
+
+.ant-btn-primary:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4);
+}
+
+/* Badge improvements */
+.ant-badge-count {
+    border-radius: 10px;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Progress bar improvements */
+.ant-progress-bg {
+    border-radius: 4px;
+    background: linear-gradient(90deg, #6B7280 0%, #4B5563 100%);
+}
+
+/* Form improvements */
+.ant-form-item-label > label {
+    font-weight: 600;
+    color: #374151;
+}
+
+.ant-input, .ant-input-affix-wrapper {
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    transition: all 0.3s ease;
+}
+
+.ant-input:focus, .ant-input-affix-wrapper:focus,
+.ant-input:hover, .ant-input-affix-wrapper:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+/* Switch improvements */
+.ant-switch {
+    background-color: #d1d5db;
+}
+
+.ant-switch-checked {
+    background-color: #6B7280;
+}
+
+/* Select improvements */
+.ant-select-selector {
+    border-radius: 6px !important;
+    border: 1px solid #d1d5db !important;
+}
+
+.ant-select-focused .ant-select-selector {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Steps improvements */
+.ant-steps-item-process .ant-steps-item-icon {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    border-color: #3b82f6;
+}
+
+.ant-steps-item-finish .ant-steps-item-icon {
+    background-color: #6B7280;
+    border-color: #6B7280;
+}
+
+/* Typography improvements */
+.ant-typography h1, .ant-typography h2, .ant-typography h3, .ant-typography h4 {
+    color: #1f2937;
+    font-weight: 700;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .custom-table {
+        font-size: 12px;
+    }
+    
+    .ant-table-thead > tr > th,
+    .ant-table-tbody > tr > td {
+        padding: 8px 12px;
+    }
+}
+
+/* Loading states */
+.ant-spin-dot-item {
+    background-color: #3b82f6;
+}
+
+/* Message improvements */
+.ant-message-notice-content {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Tooltip improvements */
+.ant-tooltip-inner {
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+/* Popconfirm improvements */
+.ant-popover-inner {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Avatar improvements */
+.ant-avatar {
+    border: 2px solid #f1f5f9;
+    transition: all 0.3s ease;
+}
+
+.ant-avatar:hover {
+    border-color: #3b82f6;
+    transform: scale(1.05);
+}
+
+/* Divider improvements */
+.ant-divider {
+    border-color: #e5e7eb;
+    margin: 24px 0;
+}
+
+/* Space improvements */
+.ant-space {
+    gap: 8px !important;
+}
+
+/* Row and Col improvements */
+.ant-row {
+    margin-left: -12px !important;
+    margin-right: -12px !important;
+}
+
+.ant-col {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+}
+
+/* Card title improvements */
+.ant-card-head-title {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* Descriptions improvements */
+.ant-descriptions-item-label {
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.ant-descriptions-item-content {
+    color: #1f2937;
+}
+
+/* Tag improvements */
+.ant-tag {
+    border-radius: 4px;
+    font-weight: 500;
+    border: none;
+}
+
+/* Statistics improvements */
+.ant-statistic-title {
+    color: #6b7280;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.ant-statistic-content {
+    color: #1f2937;
+    font-weight: 700;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Enhanced Mobile Touch Targets and Button Optimizations */
+@media (max-width: 768px) {
+    /* Touch-friendly buttons and interactive elements */
+    .btn, .ant-btn, button[type="button"], button[type="submit"], 
+    .btn-primary, .btn-secondary, .btn-outline, .btn-ghost {
+        min-height: 44px !important;
+        min-width: 44px !important;
+        padding: 12px 16px !important;
+        font-size: 14px !important;
+        border-radius: 8px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        transition: all 0.2s ease !important;
+    }
+
+    /* Icon buttons specifically */
+    .ant-btn-icon-only, button[aria-label], .icon-button {
+        min-width: 44px !important;
+        min-height: 44px !important;
+        padding: 10px !important;
+        border-radius: 50% !important;
+    }
+
+    /* Input fields for better mobile typing */
+    .ant-input, .ant-select-selector, .ant-picker, input[type="text"], 
+    input[type="email"], input[type="tel"], input[type="password"], 
+    textarea, select {
+        min-height: 44px !important;
+        padding: 12px 16px !important;
+        font-size: 16px !important; /* Prevents zoom on iOS */
+        border-radius: 8px !important;
+        line-height: 1.4 !important;
+    }
+
+    /* Dropdown and select menus */
+    .ant-select-dropdown, .ant-dropdown-menu {
+        padding: 8px 0 !important;
+    }
+
+    .ant-select-item, .ant-dropdown-menu-item {
+        min-height: 44px !important;
+        padding: 12px 16px !important;
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+    }
+
+    /* Form controls spacing */
+    .ant-form-item {
+        margin-bottom: 20px !important;
+    }
+
+    .ant-form-item-label {
+        padding-bottom: 8px !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+    }
+
+    /* Modal and drawer improvements */
+    .ant-modal-content {
+        margin: 16px !important;
+        border-radius: 12px !important;
+    }
+
+    .ant-modal-header {
+        padding: 20px 24px 16px !important;
+        border-radius: 12px 12px 0 0 !important;
+    }
+
+    .ant-modal-body {
+        padding: 20px 24px !important;
+        max-height: calc(100vh - 200px) !important;
+        overflow-y: auto !important;
+    }
+
+    .ant-modal-footer {
+        padding: 16px 24px 20px !important;
+        border-radius: 0 0 12px 12px !important;
+    }
+
+    /* Drawer mobile optimizations */
+    .ant-drawer-content {
+        border-radius: 16px 0 0 16px !important;
+    }
+
+    .ant-drawer-header {
+        padding: 20px 24px !important;
+        min-height: 64px !important;
+    }
+
+    .ant-drawer-body {
+        padding: 20px 24px !important;
+    }
+
+    /* Card touch improvements */
+    .ant-card {
+        border-radius: 12px !important;
+        overflow: hidden !important;
+    }
+
+    .ant-card-head {
+        padding: 16px 20px !important;
+        min-height: auto !important;
+    }
+
+    .ant-card-body {
+        padding: 20px !important;
+    }
+
+    /* Menu items */
+    .ant-menu-item {
+        min-height: 44px !important;
+        padding: 12px 16px !important;
+        margin: 4px 0 !important;
+        border-radius: 8px !important;
+        line-height: 1.4 !important;
+    }
+
+    /* Tab improvements */
+    .ant-tabs-tab {
+        min-height: 44px !important;
+        padding: 12px 16px !important;
+        font-size: 14px !important;
+    }
+
+    /* Pagination buttons */
+    .ant-pagination-item, .ant-pagination-prev, .ant-pagination-next {
+        min-width: 44px !important;
+        min-height: 44px !important;
+        line-height: 42px !important;
+        margin: 0 4px !important;
+    }
+
+    /* Table mobile improvements */
+    .ant-table-thead > tr > th {
+        padding: 12px 8px !important;
+        font-size: 13px !important;
+        font-weight: 600 !important;
+    }
+
+    .ant-table-tbody > tr > td {
+        padding: 12px 8px !important;
+        font-size: 13px !important;
+        line-height: 1.4 !important;
+    }
+
+    /* Slider and carousel dots */
+    .slick-dots {
+        bottom: -40px !important;
+    }
+
+    .slick-dots li {
+        margin: 0 4px !important;
+    }
+
+    .slick-dots li button {
+        width: 12px !important;
+        height: 12px !important;
+        border-radius: 50% !important;
+    }
+
+    .ant-carousel .ant-carousel-dots {
+        bottom: 20px !important;
+    }
+
+    .ant-carousel .ant-carousel-dots li button {
+        width: 10px !important;
+        height: 10px !important;
+        border-radius: 50% !important;
+    }
+
+    /* Search and filter components */
+    .search-container, .filter-container {
+        padding: 16px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .search-input {
+        width: 100% !important;
+        margin-bottom: 12px !important;
+    }
+
+    /* Navigation improvements */
+    .nav-item, .navigation-item {
+        min-height: 44px !important;
+        padding: 12px 16px !important;
+        margin: 4px 0 !important;
+    }
+
+    /* Floating action buttons */
+    .fab, .floating-action-button {
+        width: 56px !important;
+        height: 56px !important;
+        border-radius: 50% !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+        position: fixed !important;
+        bottom: 24px !important;
+        right: 24px !important;
+        z-index: 1000 !important;
+    }
+
+    /* Tooltip improvements */
+    .ant-tooltip {
+        font-size: 13px !important;
+        line-height: 1.4 !important;
+    }
+
+    .ant-tooltip-inner {
+        padding: 8px 12px !important;
+        border-radius: 6px !important;
+    }
+
+    /* Badge and tag sizing */
+    .ant-badge, .ant-tag {
+        font-size: 12px !important;
+        padding: 4px 8px !important;
+        border-radius: 4px !important;
+        line-height: 1.2 !important;
+    }
+
+    /* Steps component */
+    .ant-steps-item {
+        margin-bottom: 20px !important;
+    }
+
+    .ant-steps-item-title {
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+    }
+
+    .ant-steps-item-description {
+        font-size: 13px !important;
+        line-height: 1.3 !important;
+    }
+
+    /* Alert components */
+    .ant-alert {
+        padding: 12px 16px !important;
+        border-radius: 8px !important;
+        margin-bottom: 16px !important;
+    }
+
+    .ant-alert-message {
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+    }
+
+    /* Progress components */
+    .ant-progress-text {
+        font-size: 13px !important;
+    }
+
+    /* Date picker improvements */
+    .ant-picker-dropdown {
+        border-radius: 12px !important;
+    }
+
+    .ant-picker-cell {
+        min-height: 36px !important;
+        line-height: 34px !important;
+    }
+
+    /* Upload component */
+    .ant-upload {
+        min-height: 44px !important;
+    }
+
+    .ant-upload-btn {
+        padding: 12px 16px !important;
+        border-radius: 8px !important;
+    }
+
+    /* Rate component */
+    .ant-rate-star {
+        min-width: 24px !important;
+        min-height: 24px !important;
+        margin-right: 8px !important;
+    }
+
+    /* Switch component */
+    .ant-switch {
+        min-width: 44px !important;
+        height: 24px !important;
+    }
+
+    /* Checkbox and radio improvements */
+    .ant-checkbox, .ant-radio {
+        min-width: 20px !important;
+        min-height: 20px !important;
+    }
+
+    .ant-checkbox-wrapper, .ant-radio-wrapper {
+        min-height: 44px !important;
+        padding: 12px 0 !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    /* Tree component */
+    .ant-tree-node-content-wrapper {
+        min-height: 44px !important;
+        padding: 8px 12px !important;
+        border-radius: 6px !important;
+        line-height: 1.4 !important;
+    }
+
+    /* Timeline component */
+    .ant-timeline-item {
+        padding-bottom: 20px !important;
+    }
+
+    .ant-timeline-item-content {
+        min-height: 44px !important;
+        padding: 8px 0 !important;
+        line-height: 1.4 !important;
+    }
+}
+
+/* Ultra-small mobile devices */
+@media (max-width: 480px) {
+    /* Even more compact sizing for very small screens */
+    .btn, .ant-btn, button {
+        padding: 10px 12px !important;
+        font-size: 13px !important;
+        min-height: 40px !important;
+    }
+
+    .ant-input, .ant-select-selector, input, textarea {
+        padding: 10px 12px !important;
+        font-size: 16px !important; /* Still 16px to prevent zoom */
+        min-height: 40px !important;
+    }
+
+    .ant-modal-content {
+        margin: 8px !important;
+        width: calc(100vw - 16px) !important;
+    }
+
+    .ant-modal-body {
+        max-height: calc(100vh - 120px) !important;
+        padding: 16px 20px !important;
+    }
+
+    .fab, .floating-action-button {
+        width: 48px !important;
+        height: 48px !important;
+        bottom: 16px !important;
+        right: 16px !important;
+    }
+
+    .slick-dots li button {
+        width: 8px !important;
+        height: 8px !important;
+    }
+
+    .ant-carousel .ant-carousel-dots li button {
+        width: 8px !important;
+        height: 8px !important;
+    }
+}
+
+/* Focus states for accessibility */
+@media (max-width: 768px) {
+    button:focus, .ant-btn:focus, input:focus, select:focus, 
+    textarea:focus, .ant-input:focus, .ant-select:focus {
+        outline: 2px solid #1890ff !important;
+        outline-offset: 2px !important;
+        box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2) !important;
+    }
+
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+        button, .ant-btn, .btn {
+            border: 2px solid currentColor !important;
+        }
+        
+        input, textarea, select, .ant-input, .ant-select-selector {
+            border: 2px solid currentColor !important;
+        }
+    }
+
+    /* Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+}
+
+/* Loading states */
+.loading-skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+@media (max-width: 768px) {
+    .loading-skeleton {
+        border-radius: 8px !important;
+        min-height: 44px !important;
+    }
 }

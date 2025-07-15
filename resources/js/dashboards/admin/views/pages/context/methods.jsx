@@ -69,58 +69,41 @@ export async function loadHomeSettings() {
 }
 
 export async function saveSlides(formValues) {
-
-
     try {
-
         const method = 'post';
         const saveApi = `/api/save/slide`;
         const config = {};
 
         this.dispatch({ payload: { loading: true } });
 
-
         const promises = formValues?.map(slide => {
-
             let formValues = new FormData();
 
             for (const i in slide) {
-
                 formValues.append(i, slide[i]);
-
             }
 
             if (slide?.id) {
-
                 return ajaxRequest(method, `/api/update/slide/${slide?.id}`, formValues, config);
-
             }
 
             return ajaxRequest(method, saveApi, formValues, config);
-
         });
 
         const responses = await Promise.all(promises);
         const allSuccessful = responses.every(response => response?.success);
 
         if (allSuccessful) {
-
-            return ShowToast({ message: 'All reviews saved successfully', icon: <FaSmile /> })
-
+            return ShowToast({ message: 'All slides saved successfully', icon: <FaSmile /> })
         } else {
-
             return false;
         }
 
     } catch (error) {
-
         console.error('Error:', error);
         return false;
-
     } finally {
-
-        this.dispatch({ payload: { loading: true } });
-
+        this.dispatch({ payload: { loading: false } });
     }
 }
 
@@ -466,68 +449,54 @@ export async function saveFaqs(formValues) {
 }
 
 export async function saveBlogs(formValues) {
-
-
     try {
-
         const method = 'post';
         const saveApi = `/api/save/blogs`;
         const config = {};
 
+        console.log('Saving blogs:', formValues);
+
         const promises = formValues?.map(blog => {
-
-            // if (blog.id) {
-
-            //     this.dispatch({ payload: { loading: true } });
-
-            //     return ajaxRequest(method, `/api/update/blogs`, blog, config);
-
-            // }
-
-            // this.dispatch({ payload: { loading: true } });
-
-            // return ajaxRequest(method, saveApi, blog, config);
-
-            let formValues = new FormData();
+            let formData = new FormData();
 
             for (const i in blog) {
-
-                formValues.append(i, blog[i]);
-
+                if (blog[i] !== null && blog[i] !== undefined) {
+                    formData.append(i, blog[i]);
+                }
             }
+
+            // Debug: Log what's being sent
+            console.log('Blog data being sent:', {
+                id: blog.id,
+                title: blog.title,
+                content: blog.content,
+                image: blog.image
+            });
 
             if (blog?.id) {
-
-                return ajaxRequest(method, `/api/update/blog`, formValues, config);
-
+                return ajaxRequest(method, `/api/update/blog`, formData, config);
             }
 
-            return ajaxRequest(method, saveApi, formValues, config);
+            return ajaxRequest(method, saveApi, formData, config);
         });
 
         const responses = await Promise.all(promises);
-
+        console.log('Blog save responses:', responses);
+        
         const allSuccessful = responses.every(response => response.success);
 
         if (allSuccessful) {
-
             return ShowToast({ message: 'All blogs saved successfully', icon: <FaSmile /> })
-
         } else {
-
+            console.error('Some blog saves failed:', responses);
             return false;
         }
 
     } catch (error) {
-
-        console.error('Error:', error);
-
+        console.error('Error saving blogs:', error);
         return false;
-
     } finally {
-
-        this.dispatch({ payload: { loading: true } });
-
+        this.dispatch({ payload: { loading: false } });
     }
 }
 

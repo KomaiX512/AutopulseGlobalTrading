@@ -14,6 +14,7 @@ const UserReviews = React.lazy(() => import('../admin/views/pages/user_reviews/U
 const FAQs = React.lazy(() => import('../admin/views/pages/faq/FAQIndex'));
 const Blogs = React.lazy(() => import('../admin/views/pages/blogs/Blogs'));
 const AttachmentForm = React.lazy(() => import('../admin/views/attachments/AttachmentForm'));
+const AttachmentList = React.lazy(() => import('../admin/views/attachments/AttachmentList'));
 const Solutions = React.lazy(() => import('../admin/views/solutions/Solutions'));
 const SolutionForm = React.lazy(() => import('../admin/views/solutions/SolutionForm'));
 
@@ -33,7 +34,9 @@ const routes = [
   { path: '/home/user/reviews', name: 'User Reviews', element: UserReviews },
   { path: '/home/faqs', name: 'FAQs', element: FAQs },
   { path: '/home/blogs', name: 'Blogs', element: Blogs },
+  { path: '/attachments/list', name: 'Attachments List', element: AttachmentList },
   { path: '/attachments/add', name: 'Add Attachment', element: AttachmentForm },
+  { path: '/attachments/edit/:id', name: 'Edit Attachment', element: AttachmentForm },
   { path: '/solutions/products/:id', name: 'Manage Solution Products', element: React.lazy(() => import('../admin/views/solutions/SolutionProductsManager')) },
 
 ];

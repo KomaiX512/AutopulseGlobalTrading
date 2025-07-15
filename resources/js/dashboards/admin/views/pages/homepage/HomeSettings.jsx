@@ -8,12 +8,12 @@ import Slider from '@/Homepage/Components/Slider';
 import UploadImage from '@/Components/UploadImage';
 
 const { Panel } = Collapse;
+const { TextArea } = Input;
 
 const HomeSettings = () => {
     const { state, methods, dispatch } = useContext(PageContext);
     const [slides, setSlides] = useState([]);
     const [saving, setSaving] = useState(false);
-    // const [selectedImage, setSelectedImage] = useState(false);
 
     const isObject = (value) => typeof value === 'object' && value !== null;
 
@@ -21,8 +21,26 @@ const HomeSettings = () => {
         setSaving(true);
         let slides = await methods.loadSlides('home_slider');
         if (slides) {
+            // Process slides to extract metadata
+            const processedSlides = slides.map(slide => {
+                let metadata = {};
+                try {
+                    if (slide.metadata) {
+                        metadata = JSON.parse(slide.metadata);
+                    }
+                } catch (e) {
+                    console.error('Error parsing metadata:', e);
+                }
+                
+                return {
+                    ...slide,
+                    title: metadata.title || slide.title || '',
+                    subtitle: metadata.subtitle || slide.subtitle || '',
+                    description: metadata.description || slide.description || ''
+                };
+            });
             setSaving(false);
-            setSlides(slides);
+            setSlides(processedSlides);
         }
     }
 
@@ -33,11 +51,17 @@ const HomeSettings = () => {
     const addSlide = () => {
         setSlides([
             ...slides,
-            { id: null, image: {}, url: '', view_type: 'home_slider' },
+            { 
+                id: null, 
+                image: {}, 
+                url: '', 
+                title: '',
+                subtitle: '',
+                description: '',
+                view_type: 'home_slider' 
+            },
         ]);
     };
-
-    // useEffect(() => { }, [selectedImage]);
 
     const handleInputChange = (index, field, value) => {
         const newSlides = [...slides];
@@ -58,15 +82,13 @@ const HomeSettings = () => {
         <div>
             <Confirm
                 onConfirm={() => {
-                    methods.deleteSlides(slide.id)
-                        .then(() => {
-                            deleteSlide(index);
-                        })
-                        .catch((error) => {
-                            console.error('Error deleting slide:', error);
-                        });
+                    methods.deleteSlides(slide.id).then(() => {
+                        deleteSlide(index);
+                    }).catch((error) => {
+                        console.error('Error deleting slide:', error);
+                    });
                 }}
-                description={'Are you sure you want to delete?'}
+                description="Are you sure you want to delete?"
             >
                 <GrTrash className="h-4 w-4" />
             </Confirm>
@@ -74,11 +96,11 @@ const HomeSettings = () => {
     );
 
     return (
-        <div className='p-3 bg-white'>
-
+        <div className="p-3 bg-white">
             <div className="text-center mb-3">
                 <h2 className="text-primary text-left text-2xl font-semibold">Homepage Slider</h2>
-            </div>            <Collapse accordion>
+            </div>
+            <Collapse accordion>
                 {slides && slides?.map((slide, index) => (
                     <Panel header={`Slide ${index + 1}`} key={index} extra={genExtra(index, slide)}>
                         <Form layout="vertical">
@@ -92,6 +114,29 @@ const HomeSettings = () => {
                                 <Input
                                     value={slide?.url}
                                     onChange={(e) => handleInputChange(index, 'url', e.target.value)}
+                                    placeholder="Enter URL for this slide"
+                                />
+                            </Form.Item>
+                            <Form.Item label="Title">
+                                <Input
+                                    value={slide?.title}
+                                    onChange={(e) => handleInputChange(index, 'title', e.target.value)}
+                                    placeholder="Enter slide title"
+                                />
+                            </Form.Item>
+                            <Form.Item label="Subtitle">
+                                <Input
+                                    value={slide?.subtitle}
+                                    onChange={(e) => handleInputChange(index, 'subtitle', e.target.value)}
+                                    placeholder="Enter slide subtitle"
+                                />
+                            </Form.Item>
+                            <Form.Item label="Description">
+                                <TextArea
+                                    value={slide?.description}
+                                    onChange={(e) => handleInputChange(index, 'description', e.target.value)}
+                                    placeholder="Enter slide description"
+                                    rows={4}
                                 />
                             </Form.Item>
                         </Form>
@@ -111,10 +156,10 @@ const HomeSettings = () => {
                 </Col>
             </Row>
 
-
             <div className="text-center mb-3">
                 <h2 className="text-primary text-left text-2xl font-semibold">Slides Preview</h2>
-            </div>            <Slider slides={slides} />
+            </div>
+            <Slider slides={slides} />
         </div>
     );
 };
